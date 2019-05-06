@@ -11,7 +11,7 @@
         $sql = "SELECT tbl_alumnos.ID_ALUMNO,tbl_alumnos.ID_USUARIO,tbl_alumnos.NOMBRE,tbl_alumnos.A_PATERNO,tbl_alumnos.A_MATERNO,tbl_alumnos.GRADO,tbl_grupos.NOMBRE AS 'Grupo',tbl_grupos.ID_GRUPO FROM tbl_alumnos,tbl_usuarios,tbl_grupos,tbl_asignaciongrupos WHERE tbl_usuarios.LOGIN='{$usuario}' AND tbl_usuarios.CLAVE=AES_ENCRYPT('{$clave}','INDIRAGANDHI2017') AND tbl_usuarios.ID_USUARIO = tbl_alumnos.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO=tbl_grupos.ID_GRUPO AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND tbl_alumnos.EXISTE= 1";
         $result = mysqli_query($conexion,$sql);
         
-        if($sql){
+        if($result){
             if($reg = mysqli_fetch_array($result)){
                 $arreglo = array('idAlumno' => $reg["ID_ALUMNO"], 'idUsuario' => $reg["ID_USUARIO"],'name' =>$reg["NOMBRE"], 'apat' =>$reg["A_PATERNO"], 'amat' => $reg["A_MATERNO"], 'grado' => $reg["GRADO"], 'grupo' =>$reg["Grupo"], 'idGrupo' =>$reg["ID_GRUPO"] );
                 $id=$reg["ID_USUARIO"];
@@ -26,5 +26,4 @@
     }else{
         echo json_encode("empty");
     }
-
 ?>
