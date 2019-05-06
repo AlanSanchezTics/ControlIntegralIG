@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="icon.ico">
+    <title>Control Integral | Acceso</title>
+
+    <!-- Bootstrap -->
+    <link href="./vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="./vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./vendors/fontawesome-5.7.2-web/css/all.min.css">
+    <!-- NProgress -->
+    <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="./vendors/animate.css/animate.min.css" rel="stylesheet">
+    
+    <!-- Custom Theme Style -->
+    <link href="./build/css/custom.min.css" rel="stylesheet">
+  </head>
+  <body class="login">
+    <div>
+      <div class="login_wrapper">
+        <div class="form login_form">
+          <section class="login_content">
+            <img src="./images/user3.png" width="80px" height="80px"/>
+            <form>
+              <h1>Indira Gandhi</h1>
+              <p class="animate fadeInDown">CIAIG<br>Control Integral del Alumno<br>Iniciar sesión</p>
+              <div class="input-group animate fadeInUp">
+                  <span class="input-group-addon">
+                    <span class="fas fa-user"></span>
+                  </span><input id="usuario" name="username" type="text" class="form-control" required placeholder="Usuario" minlength="5">
+              </div>
+              <div class="input-group animate fadeInUp">
+                  <span class="input-group-addon">
+                      <span class="fas fa-lock"></span>
+                  </span><input id="clave" name="password" type="password" class="form-control" required placeholder="Contraseña" minlength="5">
+              </div>
+              <div class="animate fadeInUp">
+                <button type="submit" class="btn btn-primary submit btn-block">Entrar <i class="fas fa-sign-in-alt"></i></button>
+              </div>
+              <div class="clearfix"></div>
+              <div class="separator">
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                  <p>©2019 CIAIG Todos los derechos reservados.</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!--ModalConfirm-->
+    <div class="modal fade" id="modal-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form id="form-delete">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modal-title">Mensaje</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="opcion2" name="opcion" value="ELIMINAR">
+                        <div id="message" class="text-center h4">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 2%;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Entendido</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ModalConfirm---->
+    <script src="./vendors/jquery/dist/jquery.min.js"></script>
+    <script src="./vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./vendors/nprogress/nprogress.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
