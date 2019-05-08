@@ -66,7 +66,7 @@
             color: #444444;
         }
         .contenido, .titulo{
-            font-size: 22px;
+            font-size: 25px;
             color: black;
         }
         .fechaF{
@@ -432,7 +432,7 @@
                     <h4 class="titulo modal-title" id="myModalLabel"></h4>
                     <p class="fechaI"></p>
                 </div>
-                <div  class="contenido modal-body">
+                <div  class="contenido modal-body" style="margin: 10px;">
                     
                 </div>
                 <div style="padding: 15px; text-align: left; border-top: 1px solid #e5e5e5;">
