@@ -47,7 +47,7 @@ function getTareas($idDoc){
         $json["data"][]=array(
             'id' => $row[0],
             'titulo' => $row[1],
-            'contenido' => $row[2],
+            'contenido' => nl2br($row[2]),
             'fi' => date_format($fi, 'd/m/y'),
             'fe' => date_format($fe, 'd/m/y'),
             'fechaI'=> date_format($fi, 'Y-m-d'),
