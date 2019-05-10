@@ -58,6 +58,7 @@ var limpiar_forms = function () {
     $('.imagePreview').css("background-image", "");
     $('.imagePreview').css("display",'none');
     $("i.del").css("display","none");
+    $(".fr-wrapper").find('a').remove();
 }
 var obtener_data_view = function (tbody, table) {
     $(tbody).on('click', 'button.view', function () {
