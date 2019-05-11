@@ -98,7 +98,7 @@ function reenviarTarea($idTarea, $idGrupo){
         while($row = mysqli_fetch_array($result)) {
             $tokens[] = $row["TOKEN"];
         }
-        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$reg[1], 'body' =>$reg[2], 'imagen' => $reg[3],'FechaI' => $reg[4], 'FechaF' => $reg[5]);
+        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$reg[1], 'body' =>$reg[2], 'imagen' => 'dPanel/Tareas/images/'.$reg[3],'FechaI' => $reg[4], 'FechaF' => $reg[5]);
         sendMessage($tokens, $message);
     }
     die("SEND");
