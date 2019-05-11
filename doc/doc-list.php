@@ -2,7 +2,7 @@
 session_name("webSession");
 session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S'){
-    include "database.php";
+    include '../database.php';
 
     $sql="SELECT ID_DOCENTE, NOMBRE, A_PATERNO, A_MATERNO, TEL, EMAIL, tbl_usuarios.LOGIN,tbl_usuarios.ID_USUARIO FROM tbl_usuarios, tbl_docentes WHERE tbl_docentes.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_docentes.EXISTE=1 ORDER BY ID_DOCENTE";
     $result = mysqli_query($conn,$sql);

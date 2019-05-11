@@ -1,6 +1,6 @@
 <?php
 function ModificarData($id_doc, $nombre, $a_paterno, $a_materno, $telefono,$email,$iduser,$usuario,$clave,$nclave){
-    include "database.php";
+    include '../database.php';
 
     $sql="SELECT ID_DOCENTE FROM tbl_docentes WHERE ID_DOCENTE <> ".$id_doc." and nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
@@ -48,7 +48,7 @@ function ModificarData($id_doc, $nombre, $a_paterno, $a_materno, $telefono,$emai
     echo "UPDATED";
 }
 function EliminarData($id_doc,$iduser){
-    include "database.php";
+    include '../database.php';
     $sql = "UPDATE tbl_docentes SET existe = 0 WHERE ID_DOCENTE = {$id_doc}";
     if (mysqli_query($conn,$sql)===TRUE) {
         $sql = "UPDATE tbl_usuarios SET EXISTE = 0 WHERE ID_USUARIO = {$iduser}";
@@ -65,7 +65,7 @@ function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuari
     if(valPass($clave, $nclave)===FALSE){
         die("INCOMPATIBLE");
     }
-    include "database.php";
+    include '../database.php';
     $sql="SELECT ID_DOCENTE FROM tbl_docentes WHERE nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
