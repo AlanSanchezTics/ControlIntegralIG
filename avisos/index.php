@@ -365,7 +365,7 @@
                                 <div class="imagePreview"></div>
                                 <label class="btn btn-primary">
                                     Subir Foto<input type="file" name="imagen" class="uploadFile img" value="Upload Photo"
-                                        style="width: 0px;height: 0px;overflow: hidden;">
+                                        style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/jpeg">  
                                 </label><i class="fas fa-times del"></i>
                             </div>
                         </div>
