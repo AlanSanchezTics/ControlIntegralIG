@@ -1,5 +1,5 @@
 <?php
-    include '../error_log.php';
+    include_once '../error_log.php';
     set_error_handler('error');
     include '../database.php';
     $sql="SELECT ID_ADMIN, NOMBRE, A_PATERNO, A_MATERNO, tbl_usuarios.LOGIN, tbl_usuarios.ID_USUARIO FROM tbl_usuarios, tbl_administradores WHERE tbl_administradores.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_administradores.EXISTE= 0";

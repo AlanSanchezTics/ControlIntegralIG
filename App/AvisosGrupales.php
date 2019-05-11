@@ -1,5 +1,5 @@
 <?php
-	include '../error_log.php';
+	include_once '../error_log.php';
 	set_error_handler('error');
 	if(isset($_POST["grado"])){
 		$grado = $_POST["grado"];

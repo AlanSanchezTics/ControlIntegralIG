@@ -1,5 +1,5 @@
 <?php
-include '../error_log.php';
+include_once '../error_log.php';
 set_error_handler('error');
 function ModificarData($id_doc, $nombre, $a_paterno, $a_materno, $telefono,$email,$iduser,$usuario,$clave,$nclave){
     include '../database.php';

@@ -1,5 +1,5 @@
 <?php
-include '../error_log.php';
+include_once '../error_log.php';
 set_error_handler('error');
 function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telefono,$usuario, $clave, $nclave,$iduser){
     include '../database.php';
