@@ -1,5 +1,6 @@
 <?php
-    
+include '../../error_log.php';
+set_error_handler('error');
 session_name("webSession");
 session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST['nivel'])){

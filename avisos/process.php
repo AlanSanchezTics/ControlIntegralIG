@@ -1,4 +1,6 @@
 <?php
+include '../error_log.php';
+set_error_handler('error');
 function getGrupos(){
     include '../database.php';
     $sql = "SELECT ID_GRUPO, GRADO, NOMBRE, NIVEL FROM tbl_grupos WHERE EXISTE=1 ORDER BY ID_GRUPO";

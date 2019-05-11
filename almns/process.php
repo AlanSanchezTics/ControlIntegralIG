@@ -1,5 +1,6 @@
 <?php
-
+    include '../error_log.php';
+    set_error_handler('error');
     function getDocs($gpo, $gdo, $nivel){
         include '../database.php';
         $sqldoce = "SELECT tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO FROM `tbl_grupos`,tbl_docentes WHERE tbl_grupos.ID_DOCENTE_E = tbl_docentes.ID_DOCENTE AND NIVEL={$nivel} AND GRADO= {$gdo} AND tbl_grupos.NOMBRE='{$gpo}'";

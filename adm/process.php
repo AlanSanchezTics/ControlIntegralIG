@@ -1,4 +1,6 @@
 <?php
+include '../error_log.php';
+set_error_handler('error');
 function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telefono,$usuario, $clave, $nclave,$iduser){
     include '../database.php';
     $sql="SELECT ID_ADMIN FROM tbl_administradores WHERE ID_ADMIN <> ".$id_admin." and nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";

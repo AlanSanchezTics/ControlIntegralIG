@@ -1,4 +1,6 @@
-<?php 
+<?php
+	include '../error_log.php';
+	set_error_handler('error');
 	$json =file_get_contents("php://input");
 	$obj = json_decode($json,true);
 	$idAlumno = $obj["idAlumno"];

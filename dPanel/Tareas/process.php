@@ -1,4 +1,6 @@
 <?php
+include '../../error_log.php';
+set_error_handler('error');
 function getGpos($idDoc){
     include '../../database.php';
 

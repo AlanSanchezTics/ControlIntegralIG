@@ -1,4 +1,6 @@
-<?php 
+<?php
+	include '../error_log.php';
+	set_error_handler('error');
 	if(isset($_POST["idAlumno"])){
 		$idAlumno = $_POST["idAlumno"];
 	}else{
