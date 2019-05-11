@@ -1,6 +1,6 @@
 <?php
     function getAlumnos($grupo,$iddoc){
-        include 'database.php';
+        include '../../database.php';
 
         $sql = "SELECT tbl_alumnos.ID_ALUMNO,tbl_alumnos.NOMBRE, tbl_alumnos.A_PATERNO, tbl_alumnos.A_MATERNO, tbl_alumnos.TEL, tbl_alumnos.EMAIL FROM `tbl_asignaciongrupos`,tbl_alumnos,tbl_grupos WHERE tbl_asignaciongrupos.ID_GRUPO = tbl_grupos.ID_GRUPO AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND tbl_alumnos.EXISTE =1 AND tbl_asignaciongrupos.ID_GRUPO= {$grupo} ORDER BY tbl_alumnos.A_PATERNO";
         $result = mysqli_query($conn, $sql);
@@ -21,7 +21,7 @@
         echo json_encode($json);
     }
     function getGrupos($idDoc){
-        include 'database.php';
+        include '../../database.php';
         
         $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E = {$idDoc}  OR ID_DOCENTE_I = {$idDoc} AND EXISTE = 1";
         $result = mysqli_query($conn,$sql);

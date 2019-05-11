@@ -1,4 +1,5 @@
 <?php
+    include 'error_log.php';
     include 'database.php';
     
     if(isset($_POST["username"]) && isset($_POST["password"])){

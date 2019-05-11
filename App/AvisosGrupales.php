@@ -1,4 +1,5 @@
 <?php 
+include 'error_log.php';
 	if(isset($_POST["grado"])){
 		$grado = $_POST["grado"];
 	}else{

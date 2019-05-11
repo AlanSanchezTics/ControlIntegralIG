@@ -1,6 +1,6 @@
 <?php
 function getGpos($idDoc){
-    include 'database.php';
+    include '../../database.php';
 
     $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E =" . $idDoc . "  OR ID_DOCENTE_I = " . $idDoc . " AND EXISTE = 1";
     $result = mysqli_query($conn,$sql);
@@ -17,7 +17,7 @@ function getGpos($idDoc){
     echo json_encode($json);
 }
 function getTareas($idDoc){
-    include 'database.php';
+    include '../../database.php';
     $sql = "SELECT tbl_tareas.ID_TAREA, tbl_tareas.TITULO_TAREA, tbl_tareas.DESCRIPCION_TAREA, tbl_tareas.FECHA_CREACION , tbl_tareas.FECHA_ENTREGA,tbl_grupos.ID_GRUPO, tbl_grupos.GRADO, tbl_grupos.NOMBRE, tbl_grupos.NIVEL,tbl_tareas.TIPO_TAREA, tbl_tareas.IMAGEN_TAREA FROM tbl_tareas, tbl_grupos WHERE tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND  tbl_tareas.existe = 1 AND  tbl_tareas.ID_DOCENTE = {$idDoc} ORDER BY tbl_tareas.ID_TAREA DESC";
     $result = mysqli_query($conn,$sql);
     if(!$result)
@@ -80,7 +80,7 @@ function setNivel($e){
     return $nivel;
 }
 function reenviarTarea($idTarea, $idGrupo){
-    include 'database.php';
+    include '../../database.php';
 
     $sql = "SELECT * FROM tbl_tareas WHERE ID_TAREA = $idTarea";
     $result = $conn -> query($sql);
@@ -105,7 +105,7 @@ function reenviarTarea($idTarea, $idGrupo){
     //echo json_encode($tokens);
 }
 function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto){
-    include 'database.php';
+    include '../../database.php';
     $imagen = NULL;
     if($foto['name']!=""){
         $nombre = mt_rand();
@@ -138,7 +138,7 @@ function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$fo
     die("ADDED"); 
 }
 function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto,$imgName,$notificar){
-    include 'database.php';
+    include '../../database.php';
 
     $imagen = NULL;
     if($imgName==""){
@@ -178,7 +178,7 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia
     die("UPDATED");
 }
 function eliminarTarea($idTarea){
-    include 'database.php';
+    include '../../database.php';
 
     $sql = "UPDATE tbl_tareas SET EXISTE = 0 WHERE ID_TAREA = $idTarea";
     $result = mysqli_query($conn, $sql);
