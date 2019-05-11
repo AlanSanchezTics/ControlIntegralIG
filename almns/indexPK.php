@@ -107,9 +107,9 @@
                                 <li class="active"><a><i class="fas fa-user-graduate"></i>Alumnos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: block;">
                                         <li class="active"><a>Pre kinder</a></li>
-                                        <li><a href="indexK.php">Preescolar</a></li>
-                                        <li><a href="indexP.php">Primaria</a></li>
-                                        <li><a href="indexS.php">Secundaria</a></li>
+                                        <li><a href="indexK">Preescolar</a></li>
+                                        <li><a href="indexP">Primaria</a></li>
+                                        <li><a href="indexS">Secundaria</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="../avisos/"><i class="fas fa-bell"></i>Avisos</a>

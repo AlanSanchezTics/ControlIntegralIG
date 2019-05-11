@@ -7,6 +7,6 @@
         session_destroy();
         die(header('Location: ../page_404.html'));
     }else{
-        header('Location:indexPK.php');
+        header('Location:indexPK');
     }
 ?>

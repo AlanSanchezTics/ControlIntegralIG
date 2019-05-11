@@ -98,10 +98,10 @@
                                 </li>
                                 <li><a><i class="fas fa-user-graduate"></i>Alumnos <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="../almns/indexPK.php">Pre kinder</a></li>
-                                        <li><a href="../almns/indexK.php">Preescolar</a></li>
-                                        <li><a href="../almns/indexP.php">Primaria</a></li>
-                                        <li><a href="../almns/indexS.php">Secundaria</a></li>
+                                        <li><a href="../almns/indexPK">Pre kinder</a></li>
+                                        <li><a href="../almns/indexK">Preescolar</a></li>
+                                        <li><a href="../almns/indexP">Primaria</a></li>
+                                        <li><a href="../almns/indexS">Secundaria</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="../avisos/"><i class="fas fa-bell"></i>Avisos</a>
