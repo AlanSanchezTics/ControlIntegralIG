@@ -98,7 +98,7 @@ function reenviarTarea($idTarea, $idGrupo){
         while($row = mysqli_fetch_array($result)) {
             $tokens[] = $row["TOKEN"];
         }
-        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$reg[1], 'body' =>$reg[2], 'FechaI' => $reg[3], 'FechaF' => $reg[4]);
+        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$reg[1], 'body' =>$reg[2], 'imagen' => $reg[3],'FechaI' => $reg[4], 'FechaF' => $reg[5]);
         sendMessage($tokens, $message);
     }
     die("SEND");
@@ -132,7 +132,7 @@ function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$fo
         while ($row = mysqli_fetch_array($result)) {
             $tokens[] = $row["TOKEN"];
         }
-        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'FechaI' => $fechaI, 'FechaF' => $fechaF);
+        $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'imagen' => 'dPanel/Tareas/images/'.$imagen,'FechaI' => $fechaI, 'FechaF' => $fechaF);
         sendMessage($tokens, $message);
     }
     die("ADDED"); 
@@ -171,7 +171,7 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia
             while ($row = mysqli_fetch_array($result)) {
                 $tokens[] = $row["TOKEN"];
             }
-            $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'FechaI' => $fechaI, 'FechaF' => $fechaF);
+            $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'imagen' => 'dPanel/Tareas/images/'.$imagen,'FechaI' => $fechaI, 'FechaF' => $fechaF);
             sendMessage($tokens, $message);
         }
     }

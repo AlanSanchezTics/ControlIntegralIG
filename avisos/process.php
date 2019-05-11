@@ -93,7 +93,7 @@ function postAviso($tipo,$destinatario,$titulo,$contenido,$fechai,$fechaf,$idadm
         while ($row = mysqli_fetch_array($result)) {
             $tokens[] = $row["TOKEN"];
         }
-        $message = array('Message' => " La institucion acaba de publicar un aviso. Enterate ahora!!", 'Title' => $titulo, 'body' => $contenido, 'FechaI' => $fechai, 'FechaF' => $fechaf);
+        $message = array('Message' => " La institucion acaba de publicar un aviso. Enterate ahora!!", 'Title' => $titulo, 'body' => $contenido, 'imagen' => 'avisos/images/'.$imagen, 'FechaI' => $fechai, 'FechaF' => $fechaf);
         $tipo = "Aviso ".$tipo;
         sendMessage($tokens, $message, $tipo);
     }
@@ -147,7 +147,7 @@ function repostAviso($tipo,$destinatario,$idAviso,$notificar,$titulo,$contenido,
             while ($row = mysqli_fetch_array($result)) {
                 $tokens[] = $row["TOKEN"];
             }
-            $message = array('Message' => " La institucion acaba de publicar un aviso. Enterate ahora!!", 'Title' => $titulo, 'body' => $contenido, 'FechaI' => $fechai, 'FechaF' => $fechaf);
+            $message = array('Message' => " La institucion acaba de publicar un aviso. Enterate ahora!!", 'Title' => $titulo, 'body' => $contenido, 'imagen' => 'avisos/images/'.$imagen,'FechaI' => $fechai, 'FechaF' => $fechaf);
             $tipo = "Aviso ".$tipo;
             sendMessage($tokens, $message, $tipo);
         }
