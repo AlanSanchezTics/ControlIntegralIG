@@ -224,7 +224,7 @@ function resendAviso($idaviso,$tipo,$destinatario){
         while ($row = mysqli_fetch_array($result)) {
             $tokens[] = $row["TOKEN"];
         }
-        $message = array('Message' => " La institucion acaba de publicar un aviso, Veelo ahora!!", 'Title' => $aviso[1], 'body' => $aviso[2], 'FechaI' => $aviso[3], 'FechaF' => $aviso[4]);
+        $message = array('Message' => " La institucion acaba de publicar un aviso, Veelo ahora!!", 'Title' => $aviso[1], 'body' => $aviso[2], 'imagen' => 'avisos/images/'.$aviso[3], 'FechaI' => $aviso[4], 'FechaF' => $aviso[5]);
         $tipo = "Aviso ".$tipo;
         sendMessage($tokens, $message, $tipo);
     }
