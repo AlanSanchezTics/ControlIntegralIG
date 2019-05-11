@@ -1,9 +1,8 @@
 <?php
-include 'error_log.php';
     session_name("webSession");
     session_start();
     if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S' && isset($_POST['nivel'])){
-        include '../database.php';
+        include "database.php";
 
         $sql ="SELECT tbl_grupos.id_grupo,tbl_grupos.nombre,tbl_grupos.grado,dce.id_docente,dce.a_paterno,dce.nombre,dci.id_docente,dci.a_paterno,dci.nombre, tbl_grupos.NIVEL FROM tbl_grupos
         INNER JOIN tbl_docentes dce on tbl_grupos.id_docente_E=dce.id_docente

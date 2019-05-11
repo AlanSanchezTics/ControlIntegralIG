@@ -1,9 +1,8 @@
 <?php
-include 'error_log.php';
 session_name("webSession");
 session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S'){
-    include '../database.php';
+    include 'database.php';
 
     $sql="SELECT ID_ADMIN, NOMBRE, A_PATERNO, A_MATERNO, TEL, EMAIL, tbl_usuarios.LOGIN, tbl_usuarios.ID_USUARIO FROM tbl_usuarios, tbl_administradores WHERE tbl_administradores.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_administradores.EXISTE= 1";
     $result = mysqli_query($conn,$sql);

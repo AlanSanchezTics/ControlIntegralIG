@@ -4,7 +4,7 @@ session_name("webSession");
 session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST['nivel'])){
     $idDoc = $_SESSION['ID_DOCENTE'];
-    include '../../database.php';
+    include 'database.php';
     $sql = "SELECT tbl_tareas.ID_TAREA, tbl_tareas.TITULO_TAREA, tbl_tareas.DESCRIPCION_TAREA, tbl_tareas.FECHA_CREACION , tbl_tareas.FECHA_ENTREGA,tbl_grupos.ID_GRUPO, tbl_grupos.GRADO, tbl_grupos.NOMBRE, tbl_grupos.NIVEL,tbl_tareas.TIPO_TAREA FROM tbl_tareas, tbl_grupos WHERE tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND  tbl_tareas.existe = 1 AND  tbl_tareas.ID_DOCENTE = {$idDoc} ORDER BY tbl_tareas.ID_TAREA DESC";
     $result = mysqli_query($conn,$sql);
     if(!$result)

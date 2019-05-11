@@ -1,5 +1,4 @@
 <?php
-include 'error_log.php';
     session_name("webSession");
     session_start();
     if( !(isset($_SESSION['TIPO'])) || $_SESSION['TIPO']!='S'){

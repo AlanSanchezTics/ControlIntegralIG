@@ -1,7 +1,7 @@
 <?php
-include 'error_log.php';
+
     function getDocs($gpo, $gdo, $nivel){
-        include '../database.php';
+        include 'database.php';
         $sqldoce = "SELECT tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO FROM `tbl_grupos`,tbl_docentes WHERE tbl_grupos.ID_DOCENTE_E = tbl_docentes.ID_DOCENTE AND NIVEL={$nivel} AND GRADO= {$gdo} AND tbl_grupos.NOMBRE='{$gpo}'";
         $sqldoci = "SELECT tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO FROM `tbl_grupos`,tbl_docentes WHERE tbl_grupos.ID_DOCENTE_I = tbl_docentes.ID_DOCENTE AND NIVEL={$nivel} AND GRADO= {$gdo} AND tbl_grupos.NOMBRE='{$gpo}'";
         $resultdoce=mysqli_query($conn,$sqldoce);
@@ -21,7 +21,7 @@ include 'error_log.php';
         echo json_encode($json);
     }
     function nuevoAlumno($no_control,$nombre, $a_paterno, $a_materno,$telefono, $email, $nivel, $gdo, $gpo, $fechaI, $fechaf, $foto){
-        include '../database.php';
+        include 'database.php';
 
         $sql = "SELECT ID_ALUMNO FROM tbl_alumnos WHERE ID_ALUMNO = {$no_control}";
         $result = mysqli_query($conn,$sql);
@@ -84,7 +84,7 @@ include 'error_log.php';
         }
     }
     function modAlumno($no_control,$nombre, $a_paterno, $a_materno, $telefono, $email, $nivel, $gdo, $gpo, $fechaI, $fechaF, $foto, $iduser){
-        include '../database.php';
+        include "database.php";
 
         $sql = "SELECT ID_ALUMNO FROM tbl_alumnos WHERE ID_ALUMNO = {$no_control} AND ID_USUARIO <> {$iduser}";
         $result = mysqli_query($conn,$sql);
@@ -139,7 +139,7 @@ include 'error_log.php';
             }
     }
     function borrarAlumno($no_control, $iduser){
-        include '../database.php';
+        include "database.php";
 
         $sql = "UPDATE tbl_alumnos SET EXISTE = 0 WHERE ID_ALUMNO = {$no_control}";
 		if($conn -> query($sql) == TRUE){

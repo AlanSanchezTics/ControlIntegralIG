@@ -1,7 +1,6 @@
 <?php
-include 'error_log.php';
 function getGrupos(){
-    include '../database.php';
+    include 'database.php';
     $sql = "SELECT ID_GRUPO, GRADO, NOMBRE, NIVEL FROM tbl_grupos WHERE EXISTE=1 ORDER BY ID_GRUPO";
     $result = mysqli_query($conn,$sql);
     if(!$result){
@@ -17,7 +16,7 @@ function getGrupos(){
     echo json_encode($json);
 }
 function getAlumnos(){
-    include '../database.php';
+    include 'database.php';
     $sql = "SELECT ID_ALUMNO, NOMBRE, A_PATERNO, A_MATERNO FROM tbl_alumnos WHERE EXISTE = 1";
     $result = mysqli_query($conn,$sql);
     if(!$result){
@@ -51,7 +50,7 @@ function setNivel($e){
     return $nivel;
 }
 function postAviso($tipo,$destinatario,$titulo,$contenido,$fechai,$fechaf,$idadmin,$foto){
-    include '../database.php';
+    include "database.php";
     $imagen = NULL;
     if($foto['name']!=""){
         $nombre = mt_rand();
@@ -102,7 +101,7 @@ function postAviso($tipo,$destinatario,$titulo,$contenido,$fechai,$fechaf,$idadm
 
 }
 function repostAviso($tipo,$destinatario,$idAviso,$notificar,$titulo,$contenido,$fechai,$fechaf,$idadmin,$foto,$imgName){
-    include '../database.php';
+    include 'database.php';
     $imagen = NULL;
     if($imgName==""){
         if($foto['name']!=""){
@@ -192,7 +191,7 @@ function sendMessage($tokens, $message, $tipo){
     return $response;
 }
 function resendAviso($idaviso,$tipo,$destinatario){
-    include '../database.php';
+    include 'database.php';
     switch ($tipo) {
         case 'general':
             $sql = "SELECT * FROM tbl_avisosgenerales WHERE ID_AVISO = $idaviso";
@@ -233,7 +232,7 @@ function resendAviso($idaviso,$tipo,$destinatario){
     die("SEND");
 }
 function eliminarAviso($idaviso, $tipo){
-    include '../database.php';
+    include 'database.php';
 
     switch ($tipo) {
         case 'general':
