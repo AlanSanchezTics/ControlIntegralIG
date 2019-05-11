@@ -36,5 +36,8 @@ var val_respuesta=function(response){
             $("#message").html('<img src="./images/error-icon.png" width="80px" height="80px"/><br><br>Datos de usuario incorrectos. <br>Intente nuevamente.');
             $("#modal-confirm").modal('show');
             break;
+        default:
+            alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador.");
+        break;
     }
 }
