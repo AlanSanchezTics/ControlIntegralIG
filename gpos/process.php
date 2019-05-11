@@ -1,6 +1,6 @@
 <?php
 function getDocs(){
-    include "database.php";
+    include '../database.php';
 
     $sql = "SELECT ID_DOCENTE,NOMBRE , A_PATERNO, A_MATERNO FROM tbl_docentes WHERE EXISTE= 1";
     $result = mysqli_query($conn,$sql);
@@ -19,7 +19,7 @@ function getDocs(){
     echo json_encode($json);
 }
 function obtenerTareas($idgrupo){
-    include 'database.php';
+    include '../database.php';
 
     $sql ="SELECT ID_TAREA,TITULO_TAREA, DESCRIPCION_TAREA, TIPO_TAREA, tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, FECHA_ENTREGA, FECHA_CREACION FROM `tbl_tareas`, tbl_docentes, tbl_grupos WHERE tbl_docentes.ID_DOCENTE = tbl_tareas.ID_DOCENTE AND tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND tbl_tareas.ID_GRUPO = {$idgrupo}";
     $result = mysqli_query($conn,$sql);
@@ -61,7 +61,7 @@ function obtenerTareas($idgrupo){
     echo json_encode($json);
 }
 function nuevoGrupo($nivel,$grado,$grupo,$doce,$doci){
-    include 'database.php';
+    include '../database.php';
 
     $sql = "SELECT ID_GRUPO FROM tbl_grupos WHERE NIVEL = {$nivel} AND GRADO = {$grado} AND NOMBRE = '{$grupo}'";
     $result =   mysqli_query($conn, $sql);
@@ -81,7 +81,7 @@ function nuevoGrupo($nivel,$grado,$grupo,$doce,$doci){
     }
 }
 function modificarGrupo($idgrupo,$nivel,$grado,$grupo,$doce,$doci){
-    include 'database.php';
+    include '../database.php';
 
     $sql = "SELECT ID_GRUPO FROM tbl_grupos WHERE NIVEL = {$nivel} AND GRADO = {$grado} AND NOMBRE = '{$grupo}' AND ID_GRUPO <> {$idgrupo}";
     $result =   mysqli_query($conn, $sql);
@@ -100,7 +100,7 @@ function modificarGrupo($idgrupo,$nivel,$grado,$grupo,$doce,$doci){
     }
 }
 function EliminarGrupo($idgrupo){
-    include 'database.php';
+    include '../database.php';
     $sql = "UPDATE tbl_grupos SET EXISTE = 0 WHERE ID_GRUPO = {$idgrupo}";
 
         if($conn -> query($sql) === TRUE){

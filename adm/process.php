@@ -1,6 +1,6 @@
 <?php
 function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telefono,$usuario, $clave, $nclave,$iduser){
-    include "database.php";
+    include '../database.php';
     $sql="SELECT ID_ADMIN FROM tbl_administradores WHERE ID_ADMIN <> ".$id_admin." and nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
@@ -48,7 +48,7 @@ function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telef
     echo "UPDATED";
 }
 function EliminarData($id_admin,$iduser){
-    include "database.php";
+    include '../database.php';
     $sql = "UPDATE tbl_administradores SET existe = 0 WHERE ID_ADMIN = {$id_admin}";
     if (mysqli_query($conn,$sql)===TRUE) {
         $sql = "UPDATE tbl_usuarios SET EXISTE = 0 WHERE ID_USUARIO = {$iduser}";
@@ -65,7 +65,7 @@ function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuari
     if(valPass($clave, $nclave)===FALSE){
         die("INCOMPATIBLE");
     }
-    include "database.php";
+    include '../database.php';
     $sql="SELECT ID_ADMIN FROM tbl_administradores WHERE nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
@@ -100,7 +100,7 @@ function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuari
     }
 }
 function ActivarData($id_admin,$iduser){
-    include 'database.php';
+    include '../database.php';
     $sql="UPDATE tbl_administradores SET EXISTE=1 WHERE ID_ADMIN={$id_admin}";
     if(mysqli_query($conn,$sql)===TRUE){
         $sql="UPDATE tbl_usuarios SET EXIST=1 WHERE ID_USUARIO={$iduser}";
