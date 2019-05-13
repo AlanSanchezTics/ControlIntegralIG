@@ -53,7 +53,7 @@ var limpiar_forms = function () {
     $(".notificar").hide();
     $('#opcion').val("REGISTRAR");
     $('#opcion2').val("ELIMINAR");
-    $("#contenido").froalaEditor('html.set',"");
+    $("#contenido").summernote('code',"");
     $("input[name='imgName']").val("");
     $('.imagePreview').css("background-image", "");
     $('.imagePreview').css("display",'none');
@@ -112,7 +112,7 @@ var obtener_data_editar = function (tbody, table) {
         $("input[name='tipo']").val(data.tipo);
         $("#tipo").val(data.tipo);
         $("#titulo").val(data.titulo);
-        $("#contenido").froalaEditor('html.set',data.contenido);
+        $("#contenido").summernote('code',data.contenido);
         $("#fechaI").val(data.fechaI);
         $("#fechaI").attr("min", data.fechaI);
         $("#fechaF").val(data.fechaF);
@@ -186,12 +186,16 @@ var changeCombos = function () {
     $("#destinatario").change();
 }
 var editor = function(){
-    var textarea = $("#contenido").froalaEditor({
-        fontSizeDefaultSelection: '30',
-        fontSizeSelection: true,
-        height:300,
-        language: 'es',
-        toolbarButtons: ['bold', 'italic', 'underline','|', 'insertLink', '|', 'align', 'formatOL', 'formatUL', '|', 'undo', 'redo']
+    var textarea = $('#contenido').summernote({
+        placeholder: "Escribe aqui...",
+        height: 300,
+        minHeight: 300,
+        toolbar: [
+            ['style', ['bold', 'italic', 'strikethrough','underline']],
+            ['links', ['link']],
+            ['list', ['ul', 'ol']],
+            ['misc', ['undo','redo']]
+        ]
     });
     
 }
