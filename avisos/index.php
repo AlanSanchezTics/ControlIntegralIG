@@ -29,9 +29,7 @@
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
     <!-- Include Editor style -->
-    <link href="../vendors/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-    <link href="../vendors/froala-editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="../vendors/summernote/dist/summernote.css">
     <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../vendors/nprogress/nprogress.css">
@@ -63,17 +61,24 @@
             min-width: 100px;
         }
 
-        .fr-view {
+        .note-editable{
             font-size: 20px;
-            color: #444444;
+            color: #333333;
         }
-        .contenido, .titulo{
+        .note-placeholder{
+            font-size: 20px;
+        }
+
+        .contenido,
+        .titulo {
             font-size: 25px;
             color: black;
         }
-        .fechaF{
+
+        .fechaF {
             font-weight: bold;
         }
+
         .imagePreview {
             display: none;
             width: 100%;
@@ -85,15 +90,17 @@
             background-repeat: no-repeat;
             box-shadow: 0px -3px 6px 2px rgba(0, 0, 0, 0.2);
         }
-    .imgAviso{
-        width: 100%;
-        height: 400px;
-        background-position: center center;
-        background: url('') no-repeat center;
-        background-color: #FFF;
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
+
+        .imgAviso {
+            width: 100%;
+            height: 400px;
+            background-position: center center;
+            background: url('') no-repeat center;
+            background-color: #FFF;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
         label.btn-primary {
             display: block;
             border-radius: 0px;
@@ -356,7 +363,7 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <label for="contenido">Contenido</label>
-                                <textarea style="font-size: 30px;" name="contenido" id="contenido" class="form-control"></textarea>
+                                <textarea id="contenido" name="contenido"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -365,7 +372,7 @@
                                 <div class="imagePreview"></div>
                                 <label class="btn btn-primary">
                                     Subir Foto<input type="file" name="imagen" class="uploadFile img" value="Upload Photo"
-                                        style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/jpeg">  
+                                        style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/jpeg">
                                 </label><i class="fas fa-times del"></i>
                             </div>
                         </div>
@@ -434,8 +441,8 @@
                     <h4 class="titulo modal-title" id="myModalLabel"></h4>
                     <p class="fechaI"></p>
                 </div>
-                <div  class="contenido modal-body" style="margin: 10px;">
-                    
+                <div class="contenido modal-body" style="margin: 10px;">
+
                 </div>
                 <div style="padding: 15px; text-align: left; border-top: 1px solid #e5e5e5;">
                     <p class="fechaF"></p>
@@ -458,8 +465,8 @@
     <!-- Custom Theme Scripts -->
     <script src="../vendors/nprogress/nprogress.js"></script>
     <script src="../build/js/custom.js"></script>
+    <script src="../vendors/summernote/dist/summernote.js"></script>
     <script src="data.js"></script>
-    <script src="froala_editor.min.js"></script>
 </body>
 
 </html>

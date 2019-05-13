@@ -144,7 +144,7 @@ var obtener_data_editar = function(tbody, table){
         $("#tipo").val(data.tipo);
         $("input[name='tipo']").val(data.tipo);
         setDestinatarios(data.destinatario);
-        $("#contenido").froalaEditor('html.set',data.contenido);
+        $("#contenido").summernote('code', data.contenido);
         $("#titulo").val(data.titulo);
         $("#fechaI").val(data.fechaI);
         $("#fechaI").attr("min", data.fechaI);
@@ -202,6 +202,8 @@ var guardarData = function () {
     $('#avisos-form').on('submit', function (e) {
         var $btn = $("#avisos-form button[type='submit']").button('loading');
         e.preventDefault();
+        var frm = $(this).serialize();
+        console.log(frm);
         $.ajax({
             type: "POST",
             url: "process.php",
@@ -250,20 +252,23 @@ var limpiar_forms = function () {
     $('#opcion').val("REGISTRAR");
     $('#opcion2').val("ELIMINAR");
     $("input[name='imgName']").val("");
-    $("#contenido").froalaEditor('html.set',"");
+    $("#contenido").summernote('code',"");
     $('.imagePreview').css("background-image", "");
     $('.imagePreview').css("display",'none');
     $("i.del").css("display","none");
 }
 var editor = function(){
-    var textarea = $("#contenido").froalaEditor({
-        fontSizeDefaultSelection: '30',
-        fontSizeSelection: true,
-        height:300,
-        language: 'es',
-        toolbarButtons: ['bold', 'italic', 'underline', '|', 'insertLink', '|', 'align', 'formatOL', 'formatUL', '|', 'undo', 'redo']
+    var textarea = $('#contenido').summernote({
+        placeholder: "Escribe aqui...",
+        height: 300,
+        minHeight: 300,
+        toolbar: [
+            ['style', ['bold', 'italic', 'strikethrough','underline']],
+            ['links', ['link']],
+            ['list', ['ul', 'ol']],
+            ['misc', ['undo','redo']]
+        ]
     });
-    
 }
 var setDestinatarios = function(e){
     var tipo = $("#tipo").val();
