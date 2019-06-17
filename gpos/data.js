@@ -165,8 +165,8 @@ var getTareas = function (tbody, table) {
                 {"data":"contenido"},
                 {"data":"asignatura"},
                 {"data":"docente"},
-                {"data":"fe"},
                 {"data":"fi"},
+                {"data":"fe"},
                 {"data":"status"}
             ]
         });
