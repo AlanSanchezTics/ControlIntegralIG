@@ -1,5 +1,32 @@
 $(document).ready(function () {
     moment.locale('es');
+    $('#txtfechaI').bootstrapMaterialDatePicker({
+        format: 'DD/MMMM/YYYY',
+        minDate: moment().add(1, 'd'),
+        time: false,
+        clearButton: true,
+        weekStart: 1,
+        shortTime: true,
+        lang: 'es',
+        clearText: "Limpiar",
+        okText: "Ok",
+        cancelText: "Cancelar",
+    }).on('change', function (e, date) {
+        $('input[name="fechaI"]').val(moment(date).format("YYYY-MM-DD"));
+    });
+    $('#txtfechaF').bootstrapMaterialDatePicker({
+        format: 'DD/MMMM/YYYY',
+        minDate: moment().add(1, 'd'),
+        time: false,
+        clearButton: true,
+        weekStart: 1,
+        lang: 'es',
+        clearText: "Limpiar",
+        okText: "Ok",
+        cancelText: "Cancelar",
+    }).on('change', function (e, date) {
+        $('input[name="fechaF"]').val(moment(date).format("YYYY-MM-DD"));
+    });
     listar();
     editor();
     setDestinatarios();
@@ -21,6 +48,20 @@ $(document).ready(function () {
             $("#img").attr('src', reader.result);
         }
     });
+    $( '#programar' ).on( 'click', function() {
+        if( $(this).is(':checked') ){
+            // Hacer algo si el checkbox ha sido seleccionado
+            $('#txtfechaI').attr('disabled',false);
+            $('#txtfechaI').val("");
+            $('#fechaI').val("");
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            $('#txtfechaI').val(moment().format('DD/MMMM/YYYY'));
+            $('#txtfechaI').attr('disabled',true);
+            $('#fechaI').val(moment().format('YYYY-MM-DD'));
+        }
+    });
+    
 });
 
 var listar = function () {
@@ -37,6 +78,7 @@ var listar = function () {
             { "data": "titulo" },
             { "data": "admin" },
             { "data": "fe" },
+            { "data": "estado" },
             { "defaultContent": '<button title="Ver aviso" class="view btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalView"><i class="fas fa-eye"></i></button><button data-loading-text="Espere..." title="Reenviar aviso" class="reenviar btn btn-info btn-sm"><i class="fa fa-sync"></i></button> <button title="Editar" class="editar es btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>', className:"max" }
         ],
         responsive: true
@@ -55,6 +97,7 @@ var listar = function () {
             { "data": "admin" },
             { "data": "nivel"},
             { "data": "fe" },
+            { "data": "estado" },
             { "defaultContent": '<button title="Ver aviso" class="view btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalView"><i class="fas fa-eye"></i></button><button data-loading-text="Espere..." title="Reenviar aviso" class="reenviar btn btn-info btn-sm"><i class="fa fa-sync"></i></button> <button title="Editar" class="editar es btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>', className:"max" }
         ],
         responsive: true
@@ -73,6 +116,7 @@ var listar = function () {
             { "data": "admin" },
             { "data": "gpo"},
             { "data": "fe" },
+            { "data": "estado" },
             { "defaultContent": '<button title="Ver aviso" class="view btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalView"><i class="fas fa-eye"></i></button><button data-loading-text="Espere..." title="Reenviar aviso" class="reenviar btn btn-info btn-sm"><i class="fa fa-sync"></i></button> <button title="Editar" class="editar es btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>', className:"max" }
         ],
         responsive: true
@@ -91,6 +135,7 @@ var listar = function () {
             { "data": "admin" },
             { "data": "alumno"},
             { "data": "fe" },
+            { "data": "estado" },
             { "defaultContent": '<button title="Ver aviso" class="view btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalView"><i class="fas fa-eye"></i></button><button data-loading-text="Espere..." title="Reenviar aviso" class="reenviar btn btn-info btn-sm"><i class="fa fa-sync"></i></button> <button title="Editar" class="editar es btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>', className:"max" }
         ],
         responsive: true
@@ -147,11 +192,20 @@ var obtener_data_editar = function(tbody, table){
         $("#contenido").summernote('code', data.contenido);
         $("#titulo").val(data.titulo);
         $("#fechaI").val(data.fechaI);
-        $("#fechaI").attr("min", data.fechaI);
+        $("#txtfechaI").val(moment(data.fechaI).format('DD/MMMM/YYYY'));
         $("#fechaF").val(data.fechaF);
+        $("#txtfechaF").val(moment(data.fechaF).format('DD/MMMM/YYYY'));
         $("#idAviso").val(data.id);
+        $("#programar").parent().hide();
         $("#opcion").val("EDITAR");
-        $(".notificar").show();
+        if(data.estado == "Programado"){
+            $("#programar").click();
+            $("#txtfechaI").val(moment(data.fechaI).format('DD/MMMM/YYYY'));
+            $("#txtfechaI").attr("disabled",true);
+            $("#fechaI").val(data.fechaI);
+        }else{
+            $("#programar").attr("checked", false);
+        }
         $("#tipo").attr('disabled', true);
         $("#destinatario").attr('disabled', true);
         if(data.imagen != ""){
@@ -173,16 +227,26 @@ var obtener_data_reenviar = function (tbody, table) {
             row = row.prev();
         }
         var data = table.row(row).data();
-        $.ajax({
-            type: "POST",
-            url: "process.php",
-            data: {idAviso:data.id,opcion:"RESEND",destinatario:data.destinatario, tipo: data.tipo},
-            success: function (response) {
-                val_respuesta(response);
-                btn.button('reset');
-                NProgress.done();
-            }
-        });
+        if(data.estado == "Programado"){
+            swal({
+                title: "El aviso ya esta programado",
+                text: "Solo se pueden reenviar los avisos que han sido ya enviados.",
+                type: "warning"
+            });
+            btn.button('reset');
+            NProgress.done();
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "process.php",
+                data: {idAviso:data.id,opcion:"RESEND",destinatario:data.destinatario, tipo: data.tipo},
+                success: function (response) {
+                    val_respuesta(response);
+                    btn.button('reset');
+                    NProgress.done();
+                }
+            });
+        }
     });
 }
 var obtener_data_eliminar = function (tbody, table) {
@@ -202,8 +266,6 @@ var guardarData = function () {
     $('#avisos-form').on('submit', function (e) {
         var $btn = $("#avisos-form button[type='submit']").button('loading');
         e.preventDefault();
-        var frm = $(this).serialize();
-        console.log(frm);
         $.ajax({
             type: "POST",
             url: "process.php",
@@ -211,7 +273,6 @@ var guardarData = function () {
             contentType: false,
             data: new FormData(this),
             success: function (response) {
-                //console.log(response);
                 val_respuesta(response);
                 $btn.button('reset');
             }
@@ -240,9 +301,11 @@ var nuevo_Aviso = function () {
         $("#destinatario").removeAttr('disabled');
         $("#destinatario").removeAttr('readonly');
         $("#tipo").removeAttr('disabled');
-        $("#fechaI").attr("min", moment().format('YYYY-MM-DD'));
         $("#fechaI").val(moment().format('YYYY-MM-DD'));
+        $('#txtfechaI').val(moment().format('DD/MMMM/YYYY'));
+        $('#txtfechaI').attr('disabled',true);
         $("#modal-form").modal("show");
+        $("#programar").parent().show();
     });
 };
 var limpiar_forms = function () {
@@ -256,6 +319,10 @@ var limpiar_forms = function () {
     $('.imagePreview').css("background-image", "");
     $('.imagePreview').css("display",'none');
     $("i.del").css("display","none");
+    $("#fechaF").val("");
+    $('#txtfechaI').attr('disabled',true);
+    $('.js-switch').attr('checked', false);
+    
 }
 var editor = function(){
     var textarea = $('#contenido').summernote({
@@ -345,27 +412,44 @@ var val_respuesta = function (response) {
     switch (response) {
         case 'UPDATED':
             listar();
-            alert("Aviso ha sido actualizado con exito.");
+            swal({
+                title: "Aviso actualizado y enviado con exito",
+                type: "success"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'SEND':
-            alert("Aviso ha sido reenviado con exito.");
+            swal({
+                title: "Aviso reenviado con exito",
+                type: "success"
+            });
             break;
         case 'ADDED':
             listar();
-            alert("Aviso enviado con exito.");
+            swal({
+                title: "Aviso enviado con exito",
+                type: "success"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'DELETED':
+            swal({
+                title: "Aviso eliminado con exito",
+                type: "success"
+            });
             listar();
-            alert("Aviso eliminado con exito.");
             limpiar_forms();
             $('#modal-confirm').modal('hide');
             break;
         default:
-            alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador."+response);
+            console.log(response);
+            swal({
+                title: "Ups!",
+                text: "Hubo un problema al momento de realizar la petición. Contacte al administrador.",
+                type: "error"
+            });
             break;
     }
 }
@@ -409,7 +493,7 @@ var loadFoto = function () {
         var uploadFile = $(this);
         var files = !!this.files ? this.files : [];
         if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-        if(files[0].size > 8388608 ){alert("El tamaño de la imagen no debe de ser mayor a 7MB."); return;}
+        if(files[0].size > 8388608 ){swal({title:"Ups!",text:"El tamaño de la imagen no debe de ser mayor a 7MB.",type:"warning"}); return;}
         if (/^image/.test(files[0].type)) { // only image file
             var reader = new FileReader(); // instance of the FileReader
             reader.readAsDataURL(files[0]); // read the local file

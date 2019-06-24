@@ -141,15 +141,6 @@ var getTareas = function (tbody, table) {
             row = row.prev();
         }
         var data = table.row(row).data();
-        $.ajax({
-            type: "POST",
-            url: "process.php",
-            data: {"idgpo":data.id,"opcion":"GETTAREAS"},
-            success: function (response) {
-                tareas = JSON.parse(response);
-                console.log(tareas)
-            }
-        });
         $("#tblTareas").DataTable({
             destroy:true,
             language: langSpa,
@@ -165,8 +156,8 @@ var getTareas = function (tbody, table) {
                 {"data":"contenido"},
                 {"data":"asignatura"},
                 {"data":"docente"},
-                {"data":"fe"},
                 {"data":"fi"},
+                {"data":"fe"},
                 {"data":"status"}
             ]
         });

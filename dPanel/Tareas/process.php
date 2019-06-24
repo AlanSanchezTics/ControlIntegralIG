@@ -20,7 +20,7 @@ function getGpos($idDoc){
 }
 function getTareas($idDoc){
     include '../../database.php';
-    $sql = "SELECT tbl_tareas.ID_TAREA, tbl_tareas.TITULO_TAREA, tbl_tareas.DESCRIPCION_TAREA, tbl_tareas.FECHA_CREACION , tbl_tareas.FECHA_ENTREGA,tbl_grupos.ID_GRUPO, tbl_grupos.GRADO, tbl_grupos.NOMBRE, tbl_grupos.NIVEL,tbl_tareas.TIPO_TAREA, tbl_tareas.IMAGEN_TAREA FROM tbl_tareas, tbl_grupos WHERE tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND  tbl_tareas.existe = 1 AND  tbl_tareas.ID_DOCENTE = {$idDoc} ORDER BY tbl_tareas.ID_TAREA DESC";
+    $sql = "SELECT tbl_tareas.ID_TAREA, tbl_tareas.TITULO_TAREA, tbl_tareas.DESCRIPCION_TAREA, tbl_tareas.FECHA_CREACION , tbl_tareas.FECHA_ENTREGA,tbl_grupos.ID_GRUPO, tbl_grupos.GRADO, tbl_grupos.NOMBRE, tbl_grupos.NIVEL,tbl_tareas.TIPO_TAREA, tbl_tareas.IMAGEN_TAREA,PROGRAMADO FROM tbl_tareas, tbl_grupos WHERE tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND  tbl_tareas.existe = 1 AND  tbl_tareas.ID_DOCENTE = {$idDoc} ORDER BY tbl_tareas.ID_TAREA DESC";
     $result = mysqli_query($conn,$sql);
     if(!$result)
         die("SQL ERROR: ".mysqli_error($conn));
@@ -58,7 +58,8 @@ function getTareas($idDoc){
             'grupo' => $row[6]."°".$row[7]." ".setNivel($row[8]),
             'tipo' => $row[9],
             'asignatura' => $asignatura,
-            'imagen' => ($row[10]!="" ? './images/'.$row[10] : "")
+            'imagen' => ($row[10]!="" ? './images/'.$row[10] : ""),
+            'estado' => ($row[11]!=0 ? 'Programado': 'Lanzado')
         );
     }
     echo json_encode($json);
@@ -106,8 +107,9 @@ function reenviarTarea($idTarea, $idGrupo){
     die("SEND");
     //echo json_encode($tokens);
 }
-function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto){
+function postTarea($titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$idDoc,$foto){
     include '../../database.php';
+    mysqli_autocommit($conn,FALSE);
     $imagen = NULL;
     if($foto['name']!=""){
         $nombre = mt_rand();
@@ -117,17 +119,27 @@ function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$fo
         $imagen = $nombre.".".$rest;
         //$nombreimagen="https://www.ciaigandhi.com/AlumnosPanel/".$ruta;
     }
-    $sql ="INSERT INTO tbl_tareas(titulo_tarea,descripcion_tarea,imagen_tarea,fecha_creacion,fecha_entrega,id_grupo,tipo_tarea,id_docente,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechaI}','{$fechaF} 13:00:00',$grupo,'{$materia}',{$idDoc},1)";
-    if(mysqli_query($conn,$sql)===FALSE)
-        die("SQL ERROR: ".mysqli_error($conn));
+    $hora = NULL;
+    if($estado == 0){
+        $hora = date("H:i:s");
+    }
+    $sql ="INSERT INTO tbl_tareas(titulo_tarea,descripcion_tarea,imagen_tarea,fecha_creacion,fecha_entrega,hora_inicio,programado,id_grupo,tipo_tarea,id_docente,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechaI}','{$fechaF} 13:00:00','{$hora}',{$estado},{$grupo},'{$materia}',{$idDoc},1)";
+    if(mysqli_query($conn,$sql)===FALSE){
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ".$error);
+    }
     
     if($foto["name"]!="")    
         move_uploaded_file($foto['tmp_name'],$ruta);
 
     $sql = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos, tbl_asignaciongrupos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO = $grupo AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND LENGTH(TOKEN) < 50";
     $result = mysqli_query($conn,$sql);
-    if(!$result)
-        die("SQL ERROR: ".mysqli_error($conn));
+    if(!$result){
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ".$error);
+    }
     
     $tokens = array();
     if(mysqli_num_rows($result) > 0 ){
@@ -135,13 +147,27 @@ function postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$fo
             $tokens[] = $row["TOKEN"];
         }
         $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'imagen' => ($imagen != NULL ? 'dPanel/Tareas/images/'.$imagen : NULL),'FechaI' => $fechaI, 'FechaF' => $fechaF);
-        sendMessage($tokens, $message);
+        if($estado == 0){
+            sendMessage($tokens, $message);
+        }else{
+            $nid = scheduleNotification($tokens, $message);
+            $sql = "SELECT MAX(ID_TAREA) FROM tbl_tareas";
+            $result = mysqli_query($conn,$sql);
+            $tarea = mysqli_fetch_array($result);
+            $sql = "UPDATE tbl_tareas SET ID_NOTIFICATION = '{$nid}' WHERE ID_TAREA = {$tarea[0]}";
+            if(mysqli_query($conn,$sql)===FALSE){
+                $error = mysqli_error($conn);
+                mysqli_rollback($conn);
+                die("SQL ERROR: ".$error);
+            }
+        }
     }
+    mysqli_commit($conn);
     die("ADDED"); 
 }
-function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto,$imgName,$notificar){
+function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$idDoc,$foto,$imgName,$notificar){
     include '../../database.php';
-
+    mysqli_autocommit($conn,FALSE);
     $imagen = NULL;
     if($imgName==""){
         if($foto['name']!=""){
@@ -154,10 +180,16 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia
     }else{
         $imagen = substr($imgName,9);
     }
-
-    $sql = "UPDATE tbl_tareas SET TITULO_TAREA = '{$titulo}', DESCRIPCION_TAREA='{$contenido}',IMAGEN_TAREA='{$imagen}',FECHA_CREACION='{$fechaI}',FECHA_ENTREGA='{$fechaF}',ID_GRUPO={$grupo},TIPO_TAREA='{$materia}',ID_DOCENTE={$idDoc} WHERE ID_TAREA = {$idTarea}";
-    if(mysqli_query($conn,$sql)===FALSE)
-        die("SQL ERROR: ".mysqli_error($conn));
+    $hora = '16:00:00';
+    if($estado == 0){
+        $hora = date("H:i:s");
+    }
+    $sql = "UPDATE tbl_tareas SET TITULO_TAREA = '{$titulo}', DESCRIPCION_TAREA='{$contenido}',IMAGEN_TAREA='{$imagen}',FECHA_CREACION='{$fechaI}',FECHA_ENTREGA='{$fechaF} 13:00:00',HORA_INICIO = '{$hora}',ID_GRUPO={$grupo},TIPO_TAREA='{$materia}',ID_DOCENTE={$idDoc} WHERE ID_TAREA = {$idTarea}";
+    if(mysqli_query($conn,$sql)===FALSE){
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ".$error);
+    }
     
     if($foto["name"]!="")
         move_uploaded_file($foto['tmp_name'],$ruta);
@@ -165,8 +197,11 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia
     if($notificar=="on"){
         $sql = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos, tbl_asignaciongrupos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO = $grupo AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND LENGTH(TOKEN) < 50";
         $result = mysqli_query($conn,$sql);
-        if(!$result)
-            die("SQL ERROR: ".mysqli_error($conn));
+        if(!$result){
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("SQL ERROR: ".$error);
+        }
         
         $tokens = array();
         if (mysqli_num_rows($result) > 0) {
@@ -174,19 +209,54 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia
                 $tokens[] = $row["TOKEN"];
             }
             $message = array('Message' => "Tu docente acaba de subir una tarea, rivisala ahora!!", 'Title' =>$titulo, 'body' =>$contenido, 'imagen' => ($imagen != NULL ? 'dPanel/Tareas/images/'.$imagen : NULL),'FechaI' => $fechaI, 'FechaF' => $fechaF);
-            sendMessage($tokens, $message);
+            if($estado == 0){
+                sendMessage($tokens, $message);
+            }else{
+                $sql = "SELECT ID_NOTIFICATION FROM tbl_tareas WHERE ID_TAREA = {$idTarea}";
+                $result = mysqli_query($conn,$sql);
+                if(!$result){
+                    $error = mysqli_error($conn);
+                    mysqli_rollback($conn);
+                    die("SQL ERROR: ".$error);
+                }
+                $idnot = mysqli_fetch_array($result);
+                cancelNotification($idnot[0]);
+
+                $nid = scheduleNotification($tokens, $message);
+                $sql = "UPDATE tbl_tareas SET ID_NOTIFICATION = '{$nid}' WHERE ID_TAREA = {$idTarea}";
+                if(mysqli_query($conn,$sql)===FALSE){
+                    $error = mysqli_error($conn);
+                    mysqli_rollback($conn);
+                    die("SQL ERROR: ".$error);
+                }
+            }
         }
     }
+    mysqli_commit($conn);
     die("UPDATED");
 }
 function eliminarTarea($idTarea){
     include '../../database.php';
-
+    mysqli_autocommit($conn, FALSE);
     $sql = "UPDATE tbl_tareas SET EXISTE = 0 WHERE ID_TAREA = $idTarea";
+    if(mysqli_query($conn, $sql)===FALSE){
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ".$error);
+    }
+    $sql = "SELECT ID_NOTIFICATION FROM tbl_tareas WHERE ID_TAREA = {$idTarea}";
     $result = mysqli_query($conn, $sql);
-    if(!$result){die("SQL ERROR: ".mysqli_error($conn));}
+    if(!$result){
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ".$error);
+    }
+    $nid = mysqli_fetch_array($result);
+    cancelNotification($nid[0]);
+    mysqli_commit($conn);
     die("DELETED");
 }
+//==============onesignal API=================
 function sendMessage($tokens, $message){
     $content = array(
         "en" => 'Tu docente acaba de subir una tarea, rivisala ahora!!'
@@ -219,6 +289,60 @@ function sendMessage($tokens, $message){
     
     return $response;
 }
+function scheduleNotification($tokens, $message){
+    $content = array(
+        "en" => 'Tu docente acaba de subir una tarea, rivisala ahora!!'
+        );
+    $headings = array(
+        "en" =>$message["Title"]
+    );
+    $fields = array(
+        'app_id' => "775aebac-196e-43bd-9a15-19903cf07d9d",
+        'include_player_ids' => $tokens,
+        'data' => $message,
+        'contents' => $content,
+        'headings' => $headings,
+        'send_after' => "{$message['FechaI']} 16:00:00 GMT-0500",
+    );
+    
+    $fields = json_encode($fields);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
+                                               'Authorization: Basic ZTJiMTIwNDgtZjZmOS00ODBhLTkzOWMtZjBiNTM1ODJlNmRm'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    return substr($response,7,36);
+}
+function cancelNotification($NOTIFICATION_ID){
+    $APP_ID ="775aebac-196e-43bd-9a15-19903cf07d9d";
+    $ch = curl_init();
+    $httpHeader = array(
+        'Authorization: Basic ZTJiMTIwNDgtZjZmOS00ODBhLTkzOWMtZjBiNTM1ODJlNmRm'
+    );
+    $url = "https://onesignal.com/api/v1/notifications/" . $NOTIFICATION_ID . "?app_id=" . $APP_ID;
+
+    $options = array (
+        CURLOPT_URL => $url,
+        CURLOPT_HTTPHEADER => $httpHeader,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_CUSTOMREQUEST => "DELETE",
+        CURLOPT_SSL_VERIFYPEER => FALSE
+    );
+    curl_setopt_array($ch, $options);
+    $response = curl_exec($ch);
+    curl_close($ch);   
+    return $response; 
+}
+//============================================
 session_name("webSession");
 session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST["opcion"])){
@@ -240,7 +364,8 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST["opcion"])
             $grupo = $_POST["destinatario"];
             $materia = $_POST["tipo"];
             $foto = $_FILES["imagen"];
-            postTarea($titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto);
+            $estado = (isset($_POST["programar"]) ? 1 : 0);
+            postTarea($titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$idDoc,$foto);
             break;
         case 'EDITAR':
             $idTarea = $_POST["idTarea"];
@@ -253,7 +378,8 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST["opcion"])
             $foto = $_FILES["imagen"];
             $imgName = $_POST['imgName'];
             $notificar = (isset($_POST["notificar"]) ? $_POST["notificar"] : "");
-            repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$grupo,$materia,$idDoc,$foto,$imgName,$notificar);
+            $estado = (isset($_POST["programar"]) ? 1 : 0);
+            repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$idDoc,$foto,$imgName,$notificar);
             break;
         case 'RESEND':
             $idTarea = $_POST["idTarea"];

@@ -23,7 +23,7 @@ function getDocs(){
 function obtenerTareas($idgrupo){
     include '../database.php';
 
-    $sql ="SELECT ID_TAREA,TITULO_TAREA, DESCRIPCION_TAREA, TIPO_TAREA, tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, FECHA_ENTREGA, FECHA_CREACION FROM `tbl_tareas`, tbl_docentes, tbl_grupos WHERE tbl_docentes.ID_DOCENTE = tbl_tareas.ID_DOCENTE AND tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND tbl_tareas.ID_GRUPO = {$idgrupo}";
+    $sql ="SELECT ID_TAREA,TITULO_TAREA, DESCRIPCION_TAREA, TIPO_TAREA, tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, FECHA_ENTREGA, FECHA_CREACION,PROGRAMADO,HORA_INICIO,tbl_tareas.EXISTE FROM `tbl_tareas`, tbl_docentes, tbl_grupos WHERE tbl_docentes.ID_DOCENTE = tbl_tareas.ID_DOCENTE AND tbl_tareas.ID_GRUPO = tbl_grupos.ID_GRUPO AND tbl_tareas.ID_GRUPO = {$idgrupo}";
     $result = mysqli_query($conn,$sql);
     if(!$result){
         die("SQL ERROR 27: ".mysqli_error($conn));
@@ -31,7 +31,7 @@ function obtenerTareas($idgrupo){
     $json = array();
     while($row = mysqli_fetch_array($result)){
         $fe = date_create($row[6]);
-        $fi = date_create($row[7]);
+        $fi = date_create($row[7]." ".$row[9]);
         switch ($row[3]) {
             case 'es':
                 $row[3]="Español";
@@ -56,8 +56,8 @@ function obtenerTareas($idgrupo){
             'asignatura'=> $row[3],
             'docente'=> $row[4]." ".$row[5],
             'fe'=> date_format($fe, 'd/m/y'),
-            'fi'=> date_format($fi, 'd/m/y'),
-            'status' => ($row[6] >= date("Y-m-d H:i:s") ? "Activa":"Concluida")
+            'fi'=> date_format($fi, 'd/m/y g:i a'),
+            'status' => $row[10]== 1 ? ($row[6] >= date("Y-m-d H:i:s") ? ($row[8]==0 ? "Activa": "Programada"):"Concluida"): "Eliminada"
         );
     }
     echo json_encode($json);

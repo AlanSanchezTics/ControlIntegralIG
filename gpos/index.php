@@ -357,8 +357,8 @@
                             <th scope="col" class="head">Contenido</th>
                             <th scope="col" class="head">Asignatura</th>
                             <th scope="col" class="head">Docente</th>
-                            <th scope="col" class="head">Fecha de entrega</th>
                             <th scope="col" class="head">Fecha de emisión</th>
+                            <th scope="col" class="head">Fecha de entrega</th>
                             <th scope="col" class="head">Estado</th>
                         </thead>
                         <tbody></tbody>
