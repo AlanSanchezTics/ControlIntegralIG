@@ -64,11 +64,12 @@ function obtenerTareas($idgrupo){
 }
 function nuevoGrupo($nivel,$grado,$grupo,$doce,$doci){
     include '../database.php';
+    mysqli_autocommit($conn, FALSE);
 
     $sql = "SELECT ID_GRUPO FROM tbl_grupos WHERE NIVEL = {$nivel} AND GRADO = {$grado} AND NOMBRE = '{$grupo}'";
     $result =   mysqli_query($conn, $sql);
     if(!$result){
-        die("SQL ERROR 24: ".mysqli_error($conn));
+        die("SQL ERROR: ".mysqli_error($conn));
     }    
     $grupos = mysqli_num_rows($result);
     if ($grupos > 0) {
@@ -77,18 +78,22 @@ function nuevoGrupo($nivel,$grado,$grupo,$doce,$doci){
 
     $sql = "INSERT INTO tbl_grupos(NIVEL,GRADO,ID_DOCENTE_E,ID_DOCENTE_I,NOMBRE,EXISTE) VALUES({$nivel}, {$grado}, {$doce}, {$doci}, '{$grupo}', 1)";
 	if($conn -> query($sql) === TRUE){
+        mysqli_commit($conn);
 		die("ADDED");
 	}else{
-        die("SQL ERROR 34: ".mysqli_error($conn));
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die('QUERY ERROR: '. $error);
     }
 }
 function modificarGrupo($idgrupo,$nivel,$grado,$grupo,$doce,$doci){
     include '../database.php';
+    mysqli_autocommit($conn, FALSE);
 
     $sql = "SELECT ID_GRUPO FROM tbl_grupos WHERE NIVEL = {$nivel} AND GRADO = {$grado} AND NOMBRE = '{$grupo}' AND ID_GRUPO <> {$idgrupo}";
     $result =   mysqli_query($conn, $sql);
     if(!$result){
-        die("SQL ERROR 44: ".mysqli_error($conn));
+        die("SQL ERROR: ".mysqli_error($conn));
     }    
     $grupos = mysqli_num_rows($result);
     if ($grupos > 0) {
@@ -96,19 +101,26 @@ function modificarGrupo($idgrupo,$nivel,$grado,$grupo,$doce,$doci){
     }
     $sql = "UPDATE tbl_grupos SET NIVEL = {$nivel} , GRADO = {$grado} , ID_DOCENTE_E = {$doce} , ID_DOCENTE_I = {$doci} , NOMBRE = '{$grupo}' WHERE ID_GRUPO = {$idgrupo}";
     if($conn -> query($sql) === TRUE){
+        mysqli_commit($conn);
 		die("UPDATED");
 	}else{
-        die("SQL ERROR 53: ".mysqli_error($conn));
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die('QUERY ERROR: '. $error);
     }
 }
 function EliminarGrupo($idgrupo){
     include '../database.php';
+    mysqli_autocommit($conn, FALSE);
     $sql = "UPDATE tbl_grupos SET EXISTE = 0 WHERE ID_GRUPO = {$idgrupo}";
 
         if($conn -> query($sql) === TRUE){
+            mysqli_commit($conn);
             die("DELETED");
         }else{
-            die("SQL ERROR 62: ".mysqli_error($conn));
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die('QUERY ERROR: '. $error);
         }
 }
 session_name("webSession");

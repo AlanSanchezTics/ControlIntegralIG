@@ -117,15 +117,27 @@ var val_respuesta = function (response) {
     switch (response) {
         case "UPDATED":
             listar();
-            alert("Los datos del docente han sido actualizados con exito.");
+            swal({
+            title:'Listo!',
+            text: 'Los datos del docente han sido actualizados con exito.',
+            type: 'success'
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case "EXISTDOC":
-            alert("Los datos coinciden con otro docente registrado.");
+            swal({
+            title:'Ups!',
+            text: 'Los datos coinciden con otro docente registrado.',
+            type: 'warning'
+            });
             break;
         case "WRONGPASS":
-            alert("La contraseña anterior es incorrecta.");
+            swal({
+            title:'Ups!',
+            text: 'La contraseña anterior es incorrecta',
+            type: 'error'
+            });
             $("#pass").focus();
             break;
         case "EMPTYPASS":
@@ -136,11 +148,19 @@ var val_respuesta = function (response) {
             $("#pass2").focus();
             break;
         case "EXISTUSER":
-            alert("El usuario ya esta siendo usado por otro docente.");
+            swal({
+            title:'Ups!',
+            text: 'El usuario ya esta siendo usado por otro docente',
+            type: 'warning'
+            });
             $("#usuario").focus();
             break;
         case "DELETED":
-            alert("Docente desactivado con exito.");
+            swal({
+            title:'Listo!',
+            text: 'Docente desactivado con exito',
+            type: 'success'
+            });
             break;
         case "INCOMPATIBLE":
             var div = $("#pass2")[0].parentElement;
@@ -151,15 +171,27 @@ var val_respuesta = function (response) {
             break;
         case "ADDED":
             listar();
-            alert("El Docente ha sido registrado con exito.");
+            swal({
+            title:'Listo!',
+            text: 'El Docente ha sido registrado con exito',
+            type: 'success'
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case "ACTIVED":
-            alert("El Docente ha sido activado con exito.");
+            swal({
+            title:'Listo!',
+            text: 'El Docente ha sido activado con exito',
+            type: 'success'
+            });
             break;
         default:
-            alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador.");
+            swal({
+            title:'Ups!',
+            text: 'Problemas con el servidor al momento de realizar la petición. Contacte al administrador',
+            type: 'warning'
+            });
             break;
     }
 }

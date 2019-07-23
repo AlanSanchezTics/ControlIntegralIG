@@ -25,6 +25,9 @@
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../vendors/fontawesome-5.7.2-web/css/all.min.css">
+  <!--Sweetalert-->
+  <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
+
   <!--DataTables-->
   <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
@@ -289,6 +292,8 @@
   <script src="../vendors/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap-->
   <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!--Sweetalert-->
+  <script src="../vendors/sweetalert/sweetalert.min.js"></script>
   <!--DataTables-->
   <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

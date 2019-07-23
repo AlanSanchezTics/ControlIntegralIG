@@ -233,27 +233,47 @@ var val_respuesta = function (response) {
     switch (response) {
         case 'UPDATED':
             listar();
-            alert("Los datos del grupo han sido actualizados con exito.");
+            swal({
+            title:'Listo!',
+            text: 'Los datos del grupo han sido actualizados con exito',
+            type: 'success'
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'EXISTGPO':
-            alert("El grupo ya se encuentra registrado.");
+            swal({
+            title:'Ups!',
+            text: 'El grupo ya se encuentra registrado',
+            type: 'warning'
+            });
             break;
         case 'ADDED':
             listar();
-            alert("El grupo ha sido registrado con exito.");
+            swal({
+            title:'Listo!',
+            text: 'El grupo ha sido registrado con exito',
+            type: 'success'
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'DELETED':
             listar();
-            alert("El grupo ha sido eliminado con exito.");
+            swal({
+            title:'Listo!',
+            text: 'El grupo ha sido eliminado con exito',
+            type: 'success'
+            });
             limpiar_forms();
             $('#modal-confirm').modal('hide');
             break;
         default:
-            alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador."+response);
+            swal({
+            title:'Ups!',
+            text: 'Problemas con el servidor al momento de realizar la petición. Contacte al administrador. '+response,
+            type: 'warning'
+            });
             break;
     }
 }

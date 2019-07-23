@@ -3,6 +3,7 @@ include_once '../error_log.php';
 set_error_handler('error');
 function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telefono,$usuario, $clave, $nclave,$iduser){
     include '../database.php';
+    mysqli_autocommit($conn, FALSE);
     $sql="SELECT ID_ADMIN FROM tbl_administradores WHERE ID_ADMIN <> ".$id_admin." and nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
@@ -35,32 +36,45 @@ function ActualizarData($id_admin,$nombre, $a_paterno, $a_materno, $email,$telef
 
     $sql = "UPDATE tbl_administradores SET nombre= '".$nombre."', a_paterno='".$a_paterno."',a_materno= '".$a_materno."',tel= '".$telefono."',email= '".$email."' WHERE id_admin=".$id_admin." ";
     if ($conn->query($sql) === FALSE){
-        die("SQL ERROR 36: " . mysqli_error($conn));
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ". $error);
     }
     $sql = "UPDATE tbl_usuarios SET LOGIN = '{$usuario}' WHERE ID_USUARIO= {$iduser}";
     if($conn->query($sql) === FALSE){
-        die("SQL ERROR 40: ". mysqli_error($conn));
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ". $error);
     }
     if($clave != "" && $nclave != ""){
         $sql = "UPDATE tbl_usuarios SET CLAVE = AES_ENCRYPT('{$nclave}','INDIRAGANDHI2017') WHERE ID_USUARIO= {$iduser}";
         if($conn->query($sql) === FALSE){
-            die("SQL ERROR 45: ". mysqli_error($conn));
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("SQL ERROR: ". $error);
         }
     }
+    mysqli_commit($conn);
     echo "UPDATED";
 }
 function EliminarData($id_admin,$iduser){
     include '../database.php';
+    mysqli_autocommit($conn,FALSE);
     $sql = "UPDATE tbl_administradores SET existe = 0 WHERE ID_ADMIN = {$id_admin}";
     if (mysqli_query($conn,$sql)===TRUE) {
         $sql = "UPDATE tbl_usuarios SET EXISTE = 0 WHERE ID_USUARIO = {$iduser}";
         if(mysqli_query($conn,$sql)===TRUE){
+            mysqli_commit($conn);
             echo "DELETED";
         }else{
-            die("SQL ERROR 58: ".mysqli_error($conn));
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("SQL ERROR: ". $error);
         }
     }else{
-        die("SQL ERROR 61: ".mysqli_error($conn));
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ". $error);
     }
 }
 function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuario, $clave, $nclave){
@@ -68,16 +82,17 @@ function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuari
         die("INCOMPATIBLE");
     }
     include '../database.php';
+    mysqli_autocommit($conn, FALSE);
     $sql="SELECT ID_ADMIN FROM tbl_administradores WHERE nombre='".$nombre."' and a_paterno = '".$a_paterno."' and a_materno='".$a_materno."'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
-        die("SQL ERROR 72: ". mysqli_error($conn));
+        die("SQL ERROR: ". mysqli_error($conn));
     }
     $admin = mysqli_num_rows($result);
     $sql = "SELECT ID_USUARIO FROM tbl_usuarios WHERE tbl_usuarios.LOGIN = '{$usuario}'";
     $result = mysqli_query($conn,$sql);
     if(!$result){
-        die("SQL ERROR 78: ". mysqli_error($conn));
+        die("SQL ERROR: ". mysqli_error($conn));
     }
     $users = mysqli_num_rows($result);
     if($admin > 0){
@@ -93,12 +108,17 @@ function RegistrarData($nombre, $a_paterno, $a_materno, $email,$telefono,$usuari
         $filas = $resultado -> fetch_array();
         $sql="INSERT INTO tbl_administradores(nombre,a_paterno,a_materno,tel,email,id_usuario,existe) VALUES ('".$nombre."','".$a_paterno."','".$a_materno."','".$telefono."','".$email."',".$filas[0].",1)";
         if ($conn->query($sql) === TRUE) {
+            mysqli_commit($conn);
             die("ADDED");
         }else{
-            $sentencia="DELETE from tbl_usuarios where login='{$usuario}'";
-            mysqli_query($conexion,$sentencia);
-            die("SQL ERROR 98:". mysqli_error($conn));
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("SQL ERROR: ". $error);
         }
+    }else{
+        $error = mysqli_error($conn);
+        mysqli_rollback($conn);
+        die("SQL ERROR: ". $error);
     }
 }
 function ActivarData($id_admin,$iduser){

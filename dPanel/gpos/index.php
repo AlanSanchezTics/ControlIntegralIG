@@ -30,6 +30,8 @@
     <link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
     <link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../vendors/sweetalert/sweetalert.css">
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../../vendors/nprogress/nprogress.css">
     <link href="../../build/css/custom.min.css" rel="stylesheet" />
@@ -178,6 +180,7 @@
     <script src="../../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="../../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="../../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../../vendors/sweetalert/sweetalert.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../vendors/nprogress/nprogress.js"></script>
     <script src="../../build/js/custom.js"></script>
