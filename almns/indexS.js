@@ -320,28 +320,54 @@ var val_respuesta= function(response){
     switch (response) {
         case 'ADDED':
             listar();
-            alert("El alumno ha sido registrado con exito.");
+            swal({
+                title:"Listo!",
+                text:"El alumno ha sido registrado con exito.",
+                type:"succes"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'EXISTALUMN':
-            alert("el alumno ya se encuentra registrado.");
+                swal({
+                    title:"Ups!",
+                    text:"el alumno ya se encuentra registrado",
+                    type:"error"
+                });
             $("#NoControl").focus();
             break;
         case 'WRONGGROUP':
-            alert("Grupo seleccionado invalido.");
+                swal({
+                    title:"Ups!",
+                    text:"Grupo seleccionado invalido",
+                    type:"error"
+                });
             break;
         case 'UPDATED':
             listar();
-            alert("Datos del alumno actulizados.");
+            swal({
+                title:"Listo!",
+                text:"Datos del alumno actulizados",
+                type:"succes"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
         break;
         case "DELETED":
-            alert("Alumno desactivado con exito.");
+                swal({
+                    title:"Listo!",
+                    text:"Alumno desactivado con exito",
+                    type:"succes"
+                });
+                listar();
+                limpiar_forms();
             break;
         default:
-        alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador.");
+                swal({
+                    title:"Algo salio mal :(",
+                    text:"Problemas con el servidor al momento de realizar la petición. Contacte al administrador",
+                    type:"warning"
+                });
             break;
     }
 }

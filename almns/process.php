@@ -23,7 +23,7 @@
     }
     function nuevoAlumno($no_control,$nombre, $a_paterno, $a_materno,$telefono, $email, $nivel, $gdo, $gpo, $fechaI, $fechaf, $foto){
         include '../database.php';
-
+        mysqli_autocommit($conn, FALSE);
         $sql = "SELECT ID_ALUMNO FROM tbl_alumnos WHERE ID_ALUMNO = {$no_control}";
         $result = mysqli_query($conn,$sql);
         if(!$result){
@@ -69,28 +69,32 @@
                     if($foto["name"]!=""){
                         move_uploaded_file($foto['tmp_name'],$ruta);
                     }
+                    mysqli_commit($conn);
                     die("ADDED");
                 }else{
-                    $sentencia="DELETE from tbl_usuarios where login='{$usuario}'";
-                    mysqli_query($conexion,$sentencia);            
-                    die("QUERY ERROR 66");
+                    $error = mysqli_error($conn);
+                    mysqli_rollback($conn);
+                    die("QUERY ERROR: ". $error);
                 }
             }else{
-                $sentencia="DELETE from tbl_usuarios where login='{$usuario}'";
-                mysqli_query($conexion,$sentencia);            
-                die("QUERY ERROR 64");
+                $error = mysqli_error($conn);
+                mysqli_rollback($conn);
+                die("QUERY ERROR: ". $error);
             }
         }else{
-            die("QUERY ERROR 58");
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("QUERY ERROR: ". $error);
         }
     }
     function modAlumno($no_control,$nombre, $a_paterno, $a_materno, $telefono, $email, $nivel, $gdo, $gpo, $fechaI, $fechaF, $foto, $iduser){
         include '../database.php';
+        mysqli_autocommit($conn, FALSE);
 
         $sql = "SELECT ID_ALUMNO FROM tbl_alumnos WHERE ID_ALUMNO = {$no_control} AND ID_USUARIO <> {$iduser}";
         $result = mysqli_query($conn,$sql);
         if(!$result){
-            die("SQL ERROR 87: ".mysqli_error($conn));
+            die("SQL ERROR: ".mysqli_error($conn));
         }
         $alumns = mysqli_num_rows($result);
         if($alumns >0){
@@ -99,7 +103,7 @@
         $sql = "SELECT ID_GRUPO FROM tbl_grupos WHERE NIVEL = {$nivel} AND GRADO = {$gdo} AND NOMBRE = '{$gpo}'";
         $result = mysqli_query($conn,$sql);
         if(!$result){
-            die("SQL ERROR 97: ". mysqli_error($conn));
+            die("SQL ERROR: ". mysqli_error($conn));
         }else if(mysqli_num_rows($result) == 0){
             die('WRONGGROUP');
         }
@@ -122,7 +126,9 @@
 
         $sql = "UPDATE tbl_usuarios SET LOGIN = '{$usuario}', CLAVE = AES_ENCRYPT('{$clave}','INDIRAGANDHI2017') WHERE ID_USUARIO = {$iduser}";
         if($conn -> query($sql)==FALSE){
-            die("SQL ERROR 107: ". mysqli_error($conn));
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die("QUERY ERROR: ". $error);
         }
         $sql = " UPDATE tbl_alumnos SET ID_ALUMNO = {$no_control}, NOMBRE = '{$nombre}', A_PATERNO = '{$a_paterno}', A_MATERNO = '{$a_materno}', GRADO = {$gdo}, TEL = '{$telefono}', EMAIL = '{$email}', NIVEL = {$nivel}, FECHA_INGRESO = '{$fechaI}', FECHA_EGRESO = '{$fechaF}', IMAGEN = '{$nombreimagen}' WHERE ID_USUARIO ={$iduser}";
 			if($conn -> query($sql) == TRUE){
@@ -131,27 +137,39 @@
                     if($foto["name"]!=""){
                         move_uploaded_file($foto['tmp_name'],$ruta);
                     }
+                    mysqli_commit($conn);
                     die("UPDATED");
 				}else{
-                    die("SQL ERROR 127");
+                    $error = mysqli_error($conn);
+                    mysqli_rollback($conn);
+                    die("QUERY ERROR: ". $error);
                 }
 			}else{
-                die("SQL ERROR 125");
+                $error = mysqli_error($conn);
+                mysqli_rollback($conn);
+                die("QUERY ERROR: ". $error);
             }
     }
     function borrarAlumno($no_control, $iduser){
         include '../database.php';
+        mysqli_autocommit($conn, FALSE);
 
         $sql = "UPDATE tbl_alumnos SET EXISTE = 0 WHERE ID_ALUMNO = {$no_control}";
 		if($conn -> query($sql) == TRUE){
 			$sql = "UPDATE tbl_usuarios SET EXISTE = 0 WHERE ID_USUARIO = {$iduser}";
 			if($conn -> query($sql) == TRUE){
+                mysqli_commit($conn);
 				die("DELETED");
 			}else{
-                die("SQL ERROR 144");
+                $error = mysqli_error($conn);
+                mysqli_rollback($conn);
+                die('QUERY ERROR: '. $error);
+            
             }
 		}else{
-            die("SQL ERROR 142");
+            $error = mysqli_error($conn);
+            mysqli_rollback($conn);
+            die('QUERY ERROR: '. $error);
         }
     }
 

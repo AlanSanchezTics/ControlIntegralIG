@@ -20,6 +20,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="../icon.ico">
     <title>Control Integral Indira Gandhi | Avisos</title>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
@@ -31,6 +36,11 @@
     <!-- Include Editor style -->
     <link rel="stylesheet" href="../vendors/summernote/dist/summernote.css">
     <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet" />
+
+    <!--Include datetimePicker -->
+    <link rel="stylesheet" href="../vendors/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+    <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
+
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../vendors/nprogress/nprogress.css">
     <link href="../build/css/custom.min.css" rel="stylesheet" />
@@ -52,6 +62,7 @@
             .d-sm-block {
                 display: block !important
             }
+
             .d-sm-none {
                 display: none !important
             }
@@ -61,11 +72,12 @@
             min-width: 100px;
         }
 
-        .note-editable{
+        .note-editable {
             font-size: 20px;
             color: #333333;
         }
-        .note-placeholder{
+
+        .note-placeholder {
             font-size: 20px;
         }
 
@@ -121,6 +133,59 @@
             cursor: pointer;
             display: none;
         }
+
+        /* DateTime Picker ============================= */
+        .dtp div.dtp-date,
+        .dtp div.dtp-time {
+            background: #2B59B4;
+        }
+
+        .dtp>.dtp-content>.dtp-date-view>header.dtp-header {
+            background: rgb(55, 113, 230);
+        }
+
+        .dtp .dtp-buttons .dtp-btn-ok {
+            margin-left: 10px;
+        }
+
+        .dtp .dtp-buttons .dtp-btn-clear {
+            margin-right: 10px !important;
+        }
+
+        .dtp .p10>a {
+            color: #fff;
+        }
+
+        .dtp div.dtp-actual-year {
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        .dtp table.dtp-picker-days tr td a.selected {
+            background: #2B59B4;
+            color: #fff;
+        }
+
+        .dtp .dtp-actual-meridien a.selected {
+            background: #2B59B4;
+            color: #fff;
+        }
+
+        .datepicker.datepicker-dropdown.dropdown-menu {
+            margin-top: 0 !important;
+        }   
+
+        .datepicker table.table-condensed>tbody>tr>td {
+            padding: 6px 9px;
+        }
+
+        .input-daterange .form-control {
+            text-align: left;
+        }
+
+        .input-daterange .input-group-addon {
+            padding-right: 10px !important;
+        }
     </style>
 
 </head>
@@ -159,7 +224,8 @@
                                 </li>
                                 <li><a href="../doc/"><i class="fas fa-chalkboard-teacher"></i>Docentes</a>
                                 </li>
-                                <li><a><i class="fas fa-user-graduate"></i>Alumnos <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fas fa-user-graduate"></i>Alumnos <span
+                                            class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="../almns/indexPK">Pre kinder</a></li>
                                         <li><a href="../almns/indexK">Preescolar</a></li>
@@ -190,13 +256,16 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="../images/user3.jpg" alt=""><span style="color:#D9DEE4; font-weight: bold;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../images/user3.jpg" alt=""><span
+                                        style="color:#D9DEE4; font-weight: bold;">
                                         <?php echo $_SESSION['NOMBRE']; ?></span>
                                     <span class=" fa fa-angle-down" style="color:#D9DEE4; font-weight: bold;"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a></li>
+                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -218,8 +287,10 @@
                             <div class="x_title">
                                 <h2>Lista de Avisos</h2>
                                 <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
-                                    <li><a id="addAviso" data-toggle="tooltip" data-placement="top" title="" data-original-title="Publicar Aviso">
-                                            <span class="fas fa-comment-medical" aria-hidden="true" style="color:green;"></span>
+                                    <li><a id="addAviso" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Publicar Aviso">
+                                            <span class="fas fa-comment-medical" aria-hidden="true"
+                                                style="color:green;"></span>
                                         </a></li>
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>
@@ -228,29 +299,33 @@
                             <div class="x_content">
                                 <div class="table-responsive" role="tabpanel" data-example-id="togglable-tabs">
                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#tab_contentG" id="G-tab" role="tab"
-                                                data-toggle="tab" aria-expanded="true">Generales</a>
+                                        <li role="presentation" class="active"><a href="#tab_contentG" id="G-tab"
+                                                role="tab" data-toggle="tab" aria-expanded="true">Generales</a>
                                         </li>
-                                        <li role="presentation" class=""><a href="#tab_contentN" role="tab" id="N-tab" data-toggle="tab"
-                                                aria-expanded="false">De nivel</a>
+                                        <li role="presentation" class=""><a href="#tab_contentN" role="tab" id="N-tab"
+                                                data-toggle="tab" aria-expanded="false">De nivel</a>
                                         </li>
-                                        <li role="presentation" class=""><a href="#tab_contentGpo" role="tab" id="Gpo-tab"
-                                                data-toggle="tab" aria-expanded="false">Grupales</a>
+                                        <li role="presentation" class=""><a href="#tab_contentGpo" role="tab"
+                                                id="Gpo-tab" data-toggle="tab" aria-expanded="false">Grupales</a>
                                         </li>
-                                        <li role="presentation" class=""><a href="#tab_contentP" role="tab" id="P-tab" data-toggle="tab"
-                                                aria-expanded="false">Personalizados</a>
+                                        <li role="presentation" class=""><a href="#tab_contentP" role="tab" id="P-tab"
+                                                data-toggle="tab" aria-expanded="false">Personalizados</a>
                                         </li>
                                     </ul>
                                     <div id="myTabContent" class="tab-content">
-                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_contentG" aria-labelledby="home-tab">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_contentG"
+                                            aria-labelledby="home-tab">
                                             <div class="table-responsive">
-                                                <table id="tblGenerales" class="table table-hover table-striped" data-order='[[ 0, "desc" ]]'>
+                                                <table id="tblGenerales" class="table table-hover table-striped"
+                                                    data-order='[[ 0, "desc" ]]'>
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="head" data-class-name="priority">#</th>
+                                                            <th scope="col" class="head" data-class-name="priority">#
+                                                            </th>
                                                             <th scope="col" class="head">Titulo</th>
                                                             <th scope="col" class="head">Emisor</th>
                                                             <th scope="col" class="head">Fecha de suceso</th>
+                                                            <th scope="col" class="head">Estado</th>
                                                             <th scope="col" class="head"></th>
                                                         </tr>
                                                     </thead>
@@ -258,16 +333,20 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentN" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentN"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
-                                                <table id="tblNivel" class="table table-hover table-striped" data-order='[[ 0, "desc" ]]'>
+                                                <table id="tblNivel" class="table table-hover table-striped"
+                                                    data-order='[[ 0, "desc" ]]'>
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="head" data-class-name="priority">#</th>
+                                                            <th scope="col" class="head" data-class-name="priority">#
+                                                            </th>
                                                             <th scope="col" class="head">Titulo</th>
                                                             <th scope="col" class="head">Emisor</th>
                                                             <th scope="col" class="head">Dirigido a</th>
                                                             <th scope="col" class="head">Fecha de suceso</th>
+                                                            <th scope="col" class="head">Estado</th>
                                                             <th scope="col" class="head"></th>
                                                         </tr>
                                                     </thead>
@@ -275,16 +354,20 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentGpo" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentGpo"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
-                                                <table id="tblGrupales" class="table table-hover table-striped" data-order='[[ 0, "desc" ]]'>
+                                                <table id="tblGrupales" class="table table-hover table-striped"
+                                                    data-order='[[ 0, "desc" ]]'>
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="head" data-class-name="priority">#</th>
+                                                            <th scope="col" class="head" data-class-name="priority">#
+                                                            </th>
                                                             <th scope="col" class="head">Titulo</th>
                                                             <th scope="col" class="head">Emisor</th>
                                                             <th scope="col" class="head">Dirigido a</th>
                                                             <th scope="col" class="head">Fecha de suceso</th>
+                                                            <th scope="col" class="head">Estado</th>
                                                             <th scope="col" class="head"></th>
                                                         </tr>
                                                     </thead>
@@ -292,16 +375,20 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentP" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_contentP"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
-                                                <table id="tblPersonales" class="table table-hover table-striped" data-order='[[ 0, "desc" ]]'>
+                                                <table id="tblPersonales" class="table table-hover table-striped"
+                                                    data-order='[[ 0, "desc" ]]'>
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="head" data-class-name="priority">#</th>
+                                                            <th scope="col" class="head" data-class-name="priority">#
+                                                            </th>
                                                             <th scope="col" class="head">Titulo</th>
                                                             <th scope="col" class="head">Emisor</th>
                                                             <th scope="col" class="head">Dirigido a</th>
                                                             <th scope="col" class="head">Fecha de suceso</th>
+                                                            <th scope="col" class="head">Estado</th>
                                                             <th scope="col" class="head"></th>
                                                         </tr>
                                                     </thead>
@@ -326,7 +413,8 @@
             <form id="avisos-form" class="form-horizontal form-label-left input_mask">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-title">Datos del Aviso</h4>
                     </div>
                     <div class="modal-body">
@@ -356,7 +444,8 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <label for="titulo">Titulo del aviso</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo del Aviso" required>
+                                <input type="text" class="form-control" id="titulo" name="titulo"
+                                    placeholder="Titulo del Aviso" required>
                                 <span class="fa fa-marker form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -371,21 +460,30 @@
                                 <input type="hidden" name="imgName">
                                 <div class="imagePreview"></div>
                                 <label class="btn btn-primary">
-                                    Subir Foto<input type="file" name="imagen" class="uploadFile img" value="Upload Photo"
-                                        style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/jpeg">
+                                    Subir Foto<input type="file" name="imagen" class="uploadFile img"
+                                        value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;"
+                                        accept="image/x-png,image/jpeg">
                                 </label><i class="fas fa-times del"></i>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Inicio del aviso</label>
-                                <input type="date" name="fechaI" id="fechaI" class="form-control has-feedback-left" style="padding-right: 0px;" required>
+                                <input type="hidden" name="fechaI" id="fechaI">
+                                <input type="text" id="txtfechaI" class="datetimepicker form-control has-feedback-left" required
+                                    placeholder="Seleccione una fecha">
+
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <div id="help-block10" class="help-box"></div>
+                                <label for="programar" style="display: flex; margin-top: 1rem;">Programar aviso<input
+                                        type="checkbox" class="js-switch form-control" id="programar"
+                                        name="programar" />
+                                </label>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Fecha de acontecimiento</label>
-                                <input type="date" name="fechaF" id="fechaF" class="form-control has-feedback-left" style="padding-right: 0px;">
+                                <input type="hidden" name="fechaF" id="fechaF">
+                                <input type="text" id="txtfechaF" class="datetimepicker form-control has-feedback-left" required
+                                    placeholder="Seleccione una fecha">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <div id="help-block11" class="help-box"></div>
                             </div>
@@ -393,14 +491,16 @@
                         <div class="row">
                             <div class="notificar col-md-12 col-sm-12 col-xs-12 form-group has-feedback form-inline">
                                 <label style="display: flex;">
-                                    <input type="checkbox" class="js-switch" id="notificar" name="notificar" checked/> Notificar
+                                    <input type="checkbox" id="notificar" name="notificar" checked />
+                                    Notificar
                                     a usuarios
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer" style="margin-top: 2%;">
-                        <button type="submit" class="btn btn-success" data-loading-text="Espere..." autocomplete="off">Guardar</button>
+                        <button type="submit" class="btn btn-success" data-loading-text="Espere..."
+                            autocomplete="off">Guardar</button>
                     </div>
                 </div>
             </form>
@@ -413,7 +513,8 @@
             <form id="form-delete">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-title">Mensaje de Confirmación</h4>
                     </div>
                     <div class="modal-body">
@@ -437,7 +538,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="titulo modal-title" id="myModalLabel"></h4>
                     <p class="fechaI"></p>
                 </div>
@@ -463,6 +565,8 @@
     <script src="../vendors/switchery/dist/switchery.min.js" type="text/javascript"></script>
     <script src="../vendors/moment/min/moment-with-locales.js"></script>
     <!-- Custom Theme Scripts -->
+    <script src="../vendors/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../vendors/sweetalert/sweetalert.min.js"></script>
     <script src="../vendors/nprogress/nprogress.js"></script>
     <script src="../build/js/custom.js"></script>
     <script src="../vendors/summernote/dist/summernote.js"></script>

@@ -19,6 +19,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="../../icon.ico">
     <title>Control Integral Indira Gandhi | Tareas</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,9 +32,12 @@
     <!--DataTables-->
     <link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    
     <!-- Include Editor style -->
     <link rel="stylesheet" href="../../vendors/summernote/dist/summernote.css">
     <link href="../../vendors/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../vendors/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+    <link rel="stylesheet" href="../../vendors/sweetalert/sweetalert.css">
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../../vendors/nprogress/nprogress.css">
     <link href="../../build/css/custom.min.css" rel="stylesheet" />
@@ -121,6 +128,58 @@
             background-color: rgba(255, 255, 255, 0.685);
             cursor: pointer;
             display: none;
+        }
+                /* DateTime Picker ============================= */
+                .dtp div.dtp-date,
+        .dtp div.dtp-time {
+            background: #2B59B4;
+        }
+
+        .dtp>.dtp-content>.dtp-date-view>header.dtp-header {
+            background: rgb(55, 113, 230);
+        }
+
+        .dtp .dtp-buttons .dtp-btn-ok {
+            margin-left: 10px;
+        }
+
+        .dtp .dtp-buttons .dtp-btn-clear {
+            margin-right: 10px !important;
+        }
+
+        .dtp .p10>a {
+            color: #fff;
+        }
+
+        .dtp div.dtp-actual-year {
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        .dtp table.dtp-picker-days tr td a.selected {
+            background: #2B59B4;
+            color: #fff;
+        }
+
+        .dtp .dtp-actual-meridien a.selected {
+            background: #2B59B4;
+            color: #fff;
+        }
+
+        .datepicker.datepicker-dropdown.dropdown-menu {
+            margin-top: 0 !important;
+        }   
+
+        .datepicker table.table-condensed>tbody>tr>td {
+            padding: 6px 9px;
+        }
+
+        .input-daterange .form-control {
+            text-align: left;
+        }
+
+        .input-daterange .input-group-addon {
+            padding-right: 10px !important;
         }
     </style>
 
@@ -224,6 +283,7 @@
                                                 <th scope="col" class="head">Tipo de tarea</th>
                                                 <th scope="col" class="head">Grupo</th>
                                                 <th scope="col" class="head">Fecha de suceso</th>
+                                                <th scope="col" class="head">Estado</th>
                                                 <th scope="col" class="head"></th>
                                             </tr>
                                         </thead>
@@ -298,13 +358,21 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Inicio de la tarea</label>
-                                <input type="date" name="fechaI" id="fechaI" class="form-control has-feedback-left" style="padding-right: 0px;" required>
+                                <input type="hidden" name="fechaI" id="fechaI">
+                                <input type="text" id="txtfechaI" class="datetimepicker form-control has-feedback-left" required
+                                    placeholder="Seleccione una fecha">
+
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <div id="help-block10" class="help-box"></div>
+                                <label for="programar" style="display: flex; margin-top: 1rem;">Programar aviso<input
+                                        type="checkbox" class="js-switch form-control" id="programar"
+                                        name="programar" />
+                                </label>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Fecha de acontecimiento</label>
-                                <input type="date" name="fechaF" id="fechaF" class="form-control has-feedback-left" style="padding-right: 0px;">
+                                <input type="hidden" name="fechaF" id="fechaF">
+                                <input type="text" id="txtfechaF" class="datetimepicker form-control has-feedback-left" required
+                                    placeholder="Seleccione una fecha">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <div id="help-block11" class="help-box"></div>
                             </div>
@@ -312,7 +380,7 @@
                         <div class="row">
                             <div class="notificar col-md-12 col-sm-12 col-xs-12 form-group has-feedback form-inline">
                                 <label style="display: flex;">
-                                    <input type="checkbox" class="js-switch" id="notificar" name="notificar" checked/> Notificar
+                                    <input type="checkbox" class="js-swit" id="notificar" name="notificar" checked/> Notificar
                                     a usuarios
                                 </label>
                             </div>
@@ -378,8 +446,11 @@
     <script src="../../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
     <script src="../../vendors/switchery/dist/switchery.min.js" type="text/javascript"></script>
     <script src="../../vendors/moment/min/moment-with-locales.js"></script>
+    <script src="../../vendors/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../../vendors/sweetalert/sweetalert.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../vendors/nprogress/nprogress.js"></script>
     <script src="../../vendors/summernote/dist/summernote.js"></script>

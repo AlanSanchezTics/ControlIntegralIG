@@ -1,5 +1,32 @@
 $(function () {
     moment.locale('es');
+    $('#txtfechaI').bootstrapMaterialDatePicker({
+        format: 'DD/MMMM/YYYY',
+        minDate: moment().add(1, 'd'),
+        time: false,
+        clearButton: true,
+        weekStart: 1,
+        shortTime: true,
+        lang: 'es',
+        clearText: "Limpiar",
+        okText: "Ok",
+        cancelText: "Cancelar",
+    }).on('change', function (e, date) {
+        $('input[name="fechaI"]').val(moment(date).format("YYYY-MM-DD"));
+    });
+    $('#txtfechaF').bootstrapMaterialDatePicker({
+        format: 'DD/MMMM/YYYY',
+        minDate: moment().add(1, 'd'),
+        time: false,
+        clearButton: true,
+        weekStart: 1,
+        lang: 'es',
+        clearText: "Limpiar",
+        okText: "Ok",
+        cancelText: "Cancelar",
+    }).on('change', function (e, date) {
+        $('input[name="fechaF"]').val(moment(date).format("YYYY-MM-DD"));
+    });
     listar();
     nueva_tarea();
     editor();
@@ -11,6 +38,19 @@ $(function () {
     eliminarData();
     $(".logout").on('click', function () {
         window.location.replace('../../logout.php');
+    });
+    $( '#programar' ).on( 'click', function() {
+        if( $(this).is(':checked') ){
+            // Hacer algo si el checkbox ha sido seleccionado
+            $('#txtfechaI').attr('disabled',false);
+            $('#txtfechaI').val("");
+            $('#fechaI').val("");
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            $('#txtfechaI').val(moment().format('DD/MMMM/YYYY'));
+            $('#txtfechaI').attr('disabled',true);
+            $('#fechaI').val(moment().format('YYYY-MM-DD'));
+        }
     });
 });
 var listar = function () {
@@ -28,15 +68,19 @@ var listar = function () {
             { "data": "asignatura" },
             { "data": "grupo"},
             { "data": "fe" },
+            { "data": "estado"},
             { "defaultContent": '<button title="Ver tarea" class="view btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalView"><i class="fas fa-eye"></i></button><button data-loading-text="Espere..." title="Reenviar tarea" class="reenviar btn btn-info btn-sm"><i class="fa fa-sync"></i></button> <button title="Editar" class="editar es btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>', className:"max" }
         ],
-        responsive: true
+        responsive: true,
     });
     $("table").width("100%");
     obtener_data_editar("#tblTareas tbody", tablaTareas);
     obtener_data_eliminar("#tblTareas tbody", tablaTareas);
     obtener_data_view("#tblTareas tbody", tablaTareas);
     obtener_data_reenviar("#tblTareas tbody", tablaTareas);
+    setInterval( function () {
+        tablaTareas.ajax.reload( null, false ); // user paging is not reset on reload
+    }, 5000 );
 }
 var nueva_tarea = function () {
     $("#addTarea").on('click', function () {
@@ -44,8 +88,10 @@ var nueva_tarea = function () {
         $("#destinatario").removeAttr('disabled');
         $("#tipo").removeAttr('disabled');
         $("#fechaI").val(moment().format('YYYY-MM-DD'));
-        $("#fechaI").attr("min", moment().format('YYYY-MM-DD'));
-        $("#modal-form").modal('show');
+        $('#txtfechaI').val(moment().format('DD/MMMM/YYYY'));
+        $('#txtfechaI').attr('disabled',true);
+        $("#modal-form").modal("show");
+        $("#programar").parent().show();
     });
 }
 var limpiar_forms = function () {
@@ -58,6 +104,9 @@ var limpiar_forms = function () {
     $('.imagePreview').css("background-image", "");
     $('.imagePreview').css("display",'none');
     $("i.del").css("display","none");
+    $("#fechaF").val("");
+    $('#txtfechaI').attr('disabled',true);
+    $('.js-switch').attr('checked', false);
 }
 var obtener_data_view = function (tbody, table) {
     $(tbody).on('click', 'button.view', function () {
@@ -86,16 +135,26 @@ var obtener_data_reenviar = function (tbody, table) {
             row = row.prev();
         }
         var data = table.row(row).data();
-        $.ajax({
-            type: "POST",
-            url: "process.php",
-            data: {idTarea:data.id,opcion:"RESEND",destinatario:data.IDgrupo},
-            success: function (response) {
-                val_respuesta(response);
-                btn.button('reset');
-                NProgress.done();
-            }
-        });
+        if(data.estado == "Programado"){
+            swal({
+                title: "La tarea ya esta programada",
+                text: "Solo se pueden reenviar las tareas que han sido ya enviadas.",
+                type: "warning"
+            });
+            btn.button('reset');
+            NProgress.done();
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "process.php",
+                data: {idTarea:data.id,opcion:"RESEND",destinatario:data.IDgrupo},
+                success: function (response) {
+                    val_respuesta(response);
+                    btn.button('reset');
+                    NProgress.done();
+                }
+            });
+        }
     });
 }
 var obtener_data_editar = function (tbody, table) {
@@ -114,10 +173,19 @@ var obtener_data_editar = function (tbody, table) {
         $("#titulo").val(data.titulo);
         $("#contenido").summernote('code',data.contenido);
         $("#fechaI").val(data.fechaI);
-        $("#fechaI").attr("min", data.fechaI);
+        $("#txtfechaI").val(moment(data.fechaI).format('DD/MMMM/YYYY'));
         $("#fechaF").val(data.fechaF);
+        $("#txtfechaF").val(moment(data.fechaF).format('DD/MMMM/YYYY'));
         $("#opcion").val("EDITAR");
-        $(".notificar").show();
+        $("#programar").parent().hide();
+        if(data.estado == "Programado"){
+            $("#programar").click();
+            $("#txtfechaI").val(moment(data.fechaI).format('DD/MMMM/YYYY'));
+            $("#txtfechaI").attr("disabled",true);
+            $("#fechaI").val(data.fechaI);
+        }else{
+            $("#programar").attr("checked", false);
+        }
         $("#tipo").attr('disabled', true);
         $("#destinatario").attr('disabled', true);
         if(data.imagen != ""){
@@ -150,7 +218,6 @@ var guardarData = function () {
             contentType: false,
             data: new FormData(this),
             success: function (response) {
-                console.log(response);
                 val_respuesta(response);
                 $btn.button('reset');
             }
@@ -204,7 +271,7 @@ var loadFoto = function () {
         var uploadFile = $(this);
         var files = !!this.files ? this.files : [];
         if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-        if(files[0].size > 8388608 ){alert("El tamaño de la imagen no debe de ser mayor a 7MB."); return;}
+        if(files[0].size > 8388608 ){swal({title:"Ups!",text:"El tamaño de la imagen no debe de ser mayor a 7MB.",type:"warning"}); return;}
         if (/^image/.test(files[0].type)) { // only image file
             var reader = new FileReader(); // instance of the FileReader
             reader.readAsDataURL(files[0]); // read the local file
@@ -248,27 +315,42 @@ var val_respuesta = function (response) {
     switch (response) {
         case 'UPDATED':
             listar();
-            alert("la tarea ha sido actualizada con exito.");
+            swal({
+                title: "La tarea ha sido actualizada y reenviada con exito",
+                type: "success"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'SEND':
-            alert("Tarea reenviada con exito.");
+            swal({
+                title: "La tarea ha sido reenviada con exito",
+                type: "success"
+            });
             break;
         case 'ADDED':
             listar();
-            alert("Tarea enviada con exito.");
+            swal({
+                title: "La tarea ha sido registrada y enviada con exito",
+                type: "success"
+            });
             limpiar_forms();
             $('#modal-form').modal('hide');
             break;
         case 'DELETED':
             listar();
-            alert("Tarea eliminada con exito.");
+            swal({
+                title: "La tarea ha sido eliminada con exito",
+                type: "success"
+            });
             limpiar_forms();
             $('#modal-confirm').modal('hide');
             break;
         default:
-            alert("Problemas con el servidor al momento de realizar la petición. Contacte al administrador."+response);
+            swal({
+                title: "Problemas con el servidor al momento de realizar la petición. Contacte al administrador."+response,
+                type: "warning"
+            });
             break;
     }
 }
