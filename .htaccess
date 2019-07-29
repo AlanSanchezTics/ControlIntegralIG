@@ -1,5 +1,5 @@
 AddDefaultCharset utf-8
-ErrorDocument 404 https://www.ciaigandhi.com/temp/page_404.html
+ErrorDocument 404 /page_404.html
 RewriteBase /
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -9,5 +9,3 @@ RewriteRule ^(.*)$ $1.html
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
-
- 
