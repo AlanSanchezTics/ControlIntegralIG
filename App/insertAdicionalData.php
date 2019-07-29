@@ -2,7 +2,7 @@
     include_once '../error_log.php';
     set_error_handler('error');
     if(isset($_GET["sql"])){
-        include "conexion.php";
+        include "database.php";
         $sql = $_GET["sql"];
 
         if($sql){
