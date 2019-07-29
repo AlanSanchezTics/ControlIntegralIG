@@ -83,7 +83,7 @@
 
         .contenido,
         .titulo {
-            font-size: 25px;
+            font-size: 24px;
             color: black;
         }
 

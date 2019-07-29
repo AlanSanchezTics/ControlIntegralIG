@@ -176,7 +176,7 @@ var val_respuesta= function(response){
             swal({
                 title:"Listo!",
                 text:"El alumno ha sido registrado con exito.",
-                type:"succes"
+                type:"success"
             });
             limpiar_forms();
             $('#modal-form').modal('hide');
@@ -201,7 +201,7 @@ var val_respuesta= function(response){
             swal({
                 title:"Listo!",
                 text:"Datos del alumno actulizados",
-                type:"succes"
+                type:"success"
             });
             limpiar_forms();
             $('#modal-form').modal('hide');
@@ -210,7 +210,7 @@ var val_respuesta= function(response){
                 swal({
                     title:"Listo!",
                     text:"Alumno desactivado con exito",
-                    type:"succes"
+                    type:"success"
                 });
                 listar();
                 limpiar_forms();
