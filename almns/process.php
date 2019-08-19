@@ -47,13 +47,13 @@
         $contraseña=$usuario;
         
         if($foto["name"]==""){
-            $nombreimagen = "https://www.ciaigandhi.com/cPanel/AlumnosPanel/imagenes_alumnos/default.png";
+            $nombreimagen = "https://www.ciaigandhi.com/almns/images/Untitled.png";
         }else{
             $imagen=$foto['name'];
             $tipoarchivo=$foto['type'];
             $rest = substr($tipoarchivo,6);                            
             $ruta="images/".$no_control.".".$rest;
-            $nombreimagen="https://www.ciaigandhi.com/AlumnosPanel/".$ruta;
+            $nombreimagen="https://www.ciaigandhi.com/almns/".$ruta;
         }
         
         $sql = "INSERT INTO tbl_usuarios(login,clave,usutipo,existe) VALUES ('".$usuario."',AES_ENCRYPT('".$contraseña."','INDIRAGANDHI2017'),'A',1)";
@@ -119,8 +119,8 @@
             $imagen=$foto['name'];
             $tipoarchivo=$foto['type'];
             $rest = substr($tipoarchivo,6);                            
-            $ruta="imagenes_alumnos/".$no_control.".".$rest;
-            $nombreimagen="https://www.ciaigandhi.com/AlumnosPanel/".$ruta;                            
+            $ruta="images/".$no_control.".".$rest;
+            $nombreimagen="https://www.ciaigandhi.com/almns/".$ruta;                            
             #move_uploaded_file($foto['tmp_name'],$ruta);
         }
 

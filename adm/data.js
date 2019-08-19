@@ -75,6 +75,7 @@ var nuevo_Admin = function () {
 }
 var guardarData = function () {
     $('#admin-form').on('submit', function (e) {
+        var $btn = $("#admin-form button[type='submit']").button('loading');
         e.preventDefault();
         var div = $("#pass2")[0].parentElement;
         $(div).removeClass("has-error");
@@ -86,14 +87,14 @@ var guardarData = function () {
             data: frm,
             success: function (response) {
                 val_respuesta(response);
-                console.log(response);
-
+                $btn.button('reset');
             }
         });
     });
 }
 var eliminarData = function () {
     $('#form-delete').on('submit', function (e) {
+        var $btn = $("#form-delete button[type='submit']").button('loading');
         e.preventDefault();
         var frm = $(this).serialize();
         $("#modal-confirm").modal('hide');
@@ -105,6 +106,7 @@ var eliminarData = function () {
                 listar();
                 limpiar_forms();
                 val_respuesta(response);
+                $btn.button('reset');
             }
         });
     });

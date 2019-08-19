@@ -217,6 +217,7 @@ var getDocs = function () {
 }
 var guardarData = function () {
     $('form').on('submit', function (e) {
+        var $btn = $("form button[type='submit']").button('loading');
         e.preventDefault();
         var frm = $(this).serialize();
         $.ajax({
@@ -225,6 +226,7 @@ var guardarData = function () {
             data: frm,
             success: function (response) {
                 val_respuesta(response);
+                $btn.button('reset');
             }
         });
     });

@@ -92,6 +92,7 @@ var getGrados = function () {
 }
 var guardarData = function () {
     $("#alum-form").on("submit", function (e) {
+        var $btn = $("#alum-form button[type='submit']").button('loading');
         e.preventDefault();
         $.ajax({
             type: "POST",
@@ -99,7 +100,7 @@ var guardarData = function () {
             data: new FormData(this),
             success: function (response) {
                 val_respuesta(response);
-                console.log(response);
+                $btn.button('reset');
             },
             processData: false,
             contentType: false,
@@ -108,6 +109,7 @@ var guardarData = function () {
 }
 var eliminarData = function () {
     $('#form-delete').on('submit', function (e) {
+        var $btn = $("#form-delete button[type='submit']").button('loading');
         e.preventDefault();
         var frm = $(this).serialize();
         $("#modal-confirm").modal('hide');
@@ -119,7 +121,7 @@ var eliminarData = function () {
                 listar();
                 limpiar_forms();
                 val_respuesta(response);
-                console.log(response);
+                $btn.button('reset');
                 
             }
         });
@@ -133,7 +135,6 @@ var obtener_data_editar = function (tbody, table, gdo, gpo){
             row = row.prev();
         }
         var data = table.row(row).data();
-        console.log(data);
         $("#iduser").val(data.usu_ID);
         $("#NoControl").val(data.noControl);
         $("#nombre").val(data.nombre);
