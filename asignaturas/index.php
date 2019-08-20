@@ -18,21 +18,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="../icon.ico">
-    <title>Control Integral Indira Gandhi | Docentes</title>
+    <title>Control Integral Indira Gandhi | Asignaturas</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendors/fontawesome-5.7.2-web/css/all.min.css">
+    <!--Sweetalert-->
+    <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
+
     <!--DataTables-->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
-    <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../vendors/nprogress/nprogress.css">
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <style>
         .right_col {
@@ -51,11 +51,13 @@
             .d-sm-block {
                 display: block !important
             }
+
             .d-sm-none {
                 display: none !important
             }
         }
-        .max{
+
+        .max {
             min-width: 47px;
         }
     </style>
@@ -93,11 +95,12 @@
                             <ul class="nav side-menu">
                                 <li><a href="../inicio/"><i class="fa fa-home"></i>Inicio</a>
                                 </li>
-                                <li><a href="../adm/"><i class="fas fa-user-friends"></i>Administradores</a>
+                                <li><a><i class="fas fa-user-friends"></i>Administradores</a>
                                 </li>
-                                <li class="active"><a><i class="fas fa-chalkboard-teacher"></i>Docentes</a>
+                                <li><a href="../doc/"><i class="fas fa-chalkboard-teacher"></i>Docentes</a>
                                 </li>
-                                <li><a><i class="fas fa-user-graduate"></i>Alumnos <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fas fa-user-graduate"></i>Alumnos <span
+                                            class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="../almns/indexPK">Pre kinder</a></li>
                                         <li><a href="../almns/indexK">Preescolar</a></li>
@@ -109,7 +112,7 @@
                                 </li>
                                 <li><a href="../gpos/"><i class="fas fa-users"></i>Grupos</a>
                                 </li>
-                                <li><a href="../asignaturas/"><i class="fas fa-chalkboard"></i>Asignaturas</a></li>
+                                <li class="active"><a><i class="fas fa-chalkboard"></i>Asignaturas</a></li>
                             </ul>
                         </div>
 
@@ -131,12 +134,15 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="../images/user3.jpg" alt=""><span style="color:#D9DEE4; font-weight: bold;"><?php echo $_SESSION['NOMBRE']; ?></span>
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../images/user3.jpg" alt=""><span
+                                        style="color:#D9DEE4; font-weight: bold;"><?php echo $_SESSION['NOMBRE']; ?></span>
                                     <span class=" fa fa-angle-down" style="color:#D9DEE4; font-weight: bold;"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a></li>
+                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -149,7 +155,7 @@
             <div class="right_col hero" role="main">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Panel de Docentes</h3>
+                        <h3>Asignaturas de Secundaria</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -157,10 +163,12 @@
                         <!-- Activos -->
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Lista de Docentes Activos</h2>
+                                <h2>Lista de Asignaturas</h2>
                                 <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
-                                    <li><a id="addDoc" data-toggle="tooltip" data-placement="top" title="" data-original-title="Agregar Docente">
-                                            <span class="fa fa-user-plus" aria-hidden="true" style="color:green;"></span>
+                                    <li><a id="addAsig" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Agregar Asignatura">
+                                            <span class="fas fa-chalkboard" aria-hidden="true"
+                                                style="color:green;"></span>
                                         </a></li>
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>
@@ -168,16 +176,12 @@
                             </div>
                             <div class="x_content">
                                 <div class="table-responsive">
-                                    <table id="DocTable" class="table table-hover table-striped">
+                                    <table id="asigtable" class="table table-hover table-striped">
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="head">#</th>
-                                                <th scope="col" class="head">Nombre</th>
-                                                <th scope="col" class="head">Apellido Paterno</th>
-                                                <th scope="col" class="head">Apellido Materno</th>
-                                                <th scope="col" class="head">Telefono</th>
-                                                <th scope="col" class="head">Correo Electronico</th>
-                                                <th scope="col" class="head">Usuario de Acceso</th>
+                                                <th scope="col" class="head">Asignatura</th>
+                                                <th scope="col" class="head">Docente</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -196,61 +200,28 @@
     <!-- Modal -->
     <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <form id="doc-form" class="form-horizontal form-label-left input_mask">
+            <form id="admin-form" class="form-horizontal form-label-left input_mask">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modal-title">Datos del Docente</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modal-title">Datos de la Asignatura</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="iddoc" name="iddoc">
+                        <input type="hidden" id="idasignatura" name="idasignatura">
                         <input type="hidden" id="opcion" name="opcion" value="REGISTRAR">
                         <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
-                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label for="a-paterno">Apellido Paterno</label>
-                                <input type="text" class="form-control" id="a-paterno" name="a-paterno" placeholder="Apellido Paterno" required <span class="fa fa-user form-control-feedback right"
-                                    aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label for="a-materno">Apellido Materno</label>
-                                <input type="text" class="form-control" id="a-materno" name="a-materno" placeholder="Apellido Materno">
-                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label for="asignatura">Asignatura</label>
+                                <input type="text" class="form-control" id="asignatura" name="asignatura"
+                                    placeholder="Asignatura" required>
+                                <span class="fas fa-chalkboard form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                <span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <label for="telefono">Telefono</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Telefono">
-                                <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <input type="hidden" id="iduser" name="iduser">
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label for="usuario">Usuario</label>
-                                <input type="text" minlength="5" class="form-control" id="usuario" name="usuario" placeholder="Usuario" required>
-                                <span class="fa fa-at form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label id="labelpass" for="pass">Contraseña anterior</label>
-                                <input type="password" minlength="5" class="form-control" id="pass" name="pass" placeholder="Contraseña">
-                                <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
-                                <label id="labelpass2" for="pass2">Nueva contraseña</label>
-                                <input type="password" minlength="5" class="form-control" id="pass2" name="pass2" placeholder="Contraseña">
-                                <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
-                                <label id="help-block08"></label>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label for="docente">Docente</label>
+                                <select name="docente" id="docente" class="form-control docs" required></select>
                             </div>
                         </div>
                     </div>
@@ -268,12 +239,12 @@
             <form id="form-delete">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-title">Mensaje de Confirmación</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="iddocTodelete" name="iddoc">
-                        <input type="hidden" id="iduserTodelete" name="iduser">
+                        <input type="hidden" id="idasigTodelete" name="idasignatura">
                         <input type="hidden" id="opcion2" name="opcion" value="ELIMINAR">
                         <div id="message-confirm">
 
@@ -292,16 +263,17 @@
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap-->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--Sweetalert-->
+    <script src="../vendors/sweetalert/sweetalert.min.js"></script>
     <!--DataTables-->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-
-    <script src="../vendors/sweetalert/sweetalert.min.js"></script>
     <!-- Custom Theme Scripts -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
     <script src="../build/js/custom.js"></script>
-    <script src="data.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

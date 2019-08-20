@@ -114,7 +114,7 @@
                                 </li>
                                 <li><a href="../gpos/"><i class="fas fa-users"></i>Grupos</a>
                                 </li>
-                                
+                                <li><a href="../asignaturas/"><i class="fas fa-chalkboard"></i>Asignaturas</a></li>
                             </ul>
                         </div>
 
@@ -199,8 +199,9 @@
                                                 <table id="tblgpo1a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas"><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -224,8 +225,9 @@
                                                 <table id="tblgpo1b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -249,8 +251,9 @@
                                                 <table id="tblgpo2a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -274,8 +277,9 @@
                                                 <table id="tblgpo2b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -299,8 +303,9 @@
                                                 <table id="tblgpo3a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -323,8 +328,9 @@
                                                 <table id="tblgpo3b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="10"><span class="esp"></span><br>
-                                                                <span class="ing"></span></th>
+                                                            <th colspan="10">
+                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th scope="col" class="head">No. Control</th>
@@ -495,6 +501,51 @@
         </div>
     </div>
     <!--/ModalConfirm---->
+    <!--ModalDocentes-->
+    <div class="modal fade" id="modal-asignaturas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modal-title">Asignaturas del grupo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tbl-asignaturas" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Asignatura</th>
+                                    <th>Docente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    include '../database.php';
+                                    $sql = "SELECT tbl_materias.ID_MATERIA, tbl_materias.NOMBRE_MATERIA, tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO, tbl_materias.ID_DOCENTE FROM tbl_materias, tbl_docentes WHERE tbl_materias.ID_DOCENTE = tbl_docentes.ID_DOCENTE AND tbl_docentes.EXISTE = 1 AND tbl_materias.EXISTE = 1";
+                                    $result = mysqli_query($conn,$sql);
+                                    
+                                    if(!$result){
+                                        echo '<tr>
+                                            <td colspan="3">Sin resultados...</td>
+                                            </tr>';
+                                    }else{
+                                        while($row = mysqli_fetch_array($result)){
+                                            echo '
+                                            <tr>
+                                                <th>'.$row[0].'</th>
+                                                <td>'.$row[1].'</td>
+                                                <td>'.$row[2].' '.$row[3].' '.$row[4].'</td>
+                                            </tr>';
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!--/ModalDocentes-->
     <!-- jQuery-->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap-->

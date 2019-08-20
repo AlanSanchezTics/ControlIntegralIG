@@ -71,8 +71,6 @@ var listar = function () {
         columns:[
             {"data":"id"},
             {"data":"gpo"},
-            {"data":"doc-esp"},
-            {"data":"doc-ing"},
             {"defaultContent": `<button title="Ver Tareas" class="tareas btn btn-info btn-sm" data-toggle="modal" data-target="#modal-tareas"><i class="fa fa-book-open"></i></button> <button title="Editar" class="editar es btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-form"><i class="fas fa-edit"></i></button> <button class="eliminar ds btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirm" title="Eliminar"><i class="fas fa-trash"></i></button>`, className:"max"}
         ]
     });

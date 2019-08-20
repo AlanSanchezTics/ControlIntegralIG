@@ -110,6 +110,7 @@
                                 </li>
                                 <li class="active"><a><i class="fas fa-users"></i>Grupos</a>
                                 </li>
+                                <li><a href="../asignaturas/"><i class="fas fa-chalkboard"></i>Asignaturas</a></li>
                             </ul>
                         </div>
 
@@ -238,8 +239,6 @@
                                                         <tr>
                                                             <th scope="col" class="head">#</th>
                                                             <th scope="col" class="head" data-class-name="priority">Grupo</th>
-                                                            <th scope="col" class="head">Maestro</th>
-                                                            <th scope="col" class="head">Teacher</th>
                                                             <th scope="col" class="head"></th>
                                                         </tr>
                                                     </thead>

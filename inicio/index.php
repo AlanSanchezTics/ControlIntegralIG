@@ -107,7 +107,7 @@
                                 </li>
                                 <li><a href="../gpos/"><i class="fas fa-users"></i>Grupos</a>
                                 </li>
-
+                                <li><a href="../asignaturas/"><i class="fas fa-chalkboard"></i>Asignaturas</a></li>
                             </ul>
                         </div>
 
