@@ -3,8 +3,11 @@ include_once '../../error_log.php';
 set_error_handler('error');
 function getGpos($idDoc){
     include '../../database.php';
-
-    $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E =" . $idDoc . "  OR ID_DOCENTE_I = " . $idDoc . " AND EXISTE = 1";
+    if($idDoc == 33){
+        $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_GRUPO = 17";
+    }else{
+        $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E =" . $idDoc . "  OR ID_DOCENTE_I = " . $idDoc . " AND EXISTE = 1";
+    }
     $result = mysqli_query($conn,$sql);
     if(!$result){
         die("Query Failed ". mysqli_error($conn));
