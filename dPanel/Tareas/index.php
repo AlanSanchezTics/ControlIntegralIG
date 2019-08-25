@@ -324,11 +324,7 @@
                                 <label for="destinatario"> Tipo de tarea</label>
                                 <input type="hidden" name="tipo">
                                 <select id="tipo" class="form-control">
-                                    <option value="es">Español</option>
-                                    <option value="en">Ingles</option>
-                                    <option value="co">Computación</option>
-                                    <option value="ms">Música</option>
-                                    <option value="ef">Deportes</option>
+                                    
                                 </select>
                             </div>
                         </div>

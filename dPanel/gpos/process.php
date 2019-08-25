@@ -24,11 +24,8 @@
     }
     function getGrupos($idDoc){
         include '../../database.php';
-        if($idDoc == 33){
-            $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_GRUPO = 17";
-        }else{
-            $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E = {$idDoc}  OR ID_DOCENTE_I = {$idDoc} AND EXISTE = 1";
-        }
+        $sql = "SELECT ID_GRUPO, GRADO,NOMBRE, NIVEL FROM tbl_grupos WHERE ID_DOCENTE_E = {$idDoc}  OR ID_DOCENTE_I = {$idDoc} AND EXISTE = 1";
+        
         $result = mysqli_query($conn,$sql);
         if(!$result)
         die("SQL ERROR: ".mysqli_error($conn));
@@ -38,6 +35,25 @@
                 'id' => $row[0],
                 'gpo' => $row[1]."°".$row[2]."-".setNivel($row[3])
             );
+        }
+
+        $sql = "SELECT ID_DOCENTE FROM tbl_materias WHERE ID_DOCENTE = {$idDoc}";
+        $result = mysqli_query($conn,$sql);
+        if(!$result)
+        die("SQL ERROR: ".mysqli_error($conn));
+
+        if(mysqli_num_rows($result) > 0 ){
+            $sql = "SELECT ID_GRUPO, GRADO, NOMBRE, NIVEL FROM tbl_grupos WHERE ID_GRUPO = 17";
+            $result = mysqli_query($conn,$sql);
+            if(!$result)
+            die("SQL ERROR: ".mysqli_error($conn));
+
+            while ($row = mysqli_fetch_array($result)){
+                $grupos[] = array(
+                    'id' => $row[0],
+                    'gpo' => $row[1]."°".$row[2]."-".setNivel($row[3])
+                );
+            }
         }
         echo json_encode($grupos);
     }

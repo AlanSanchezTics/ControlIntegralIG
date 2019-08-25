@@ -92,6 +92,8 @@ var nueva_tarea = function () {
         $('#txtfechaI').attr('disabled',true);
         $("#modal-form").modal("show");
         $("#programar").parent().show();
+        $("#destinatario").change();
+        $("#tipo").change();
     });
 }
 var limpiar_forms = function () {
@@ -248,9 +250,35 @@ var changeCombos = function () {
     $("#destinatario").on('change', function () {
         var destinatario = $(this).val();
         $("input[name='destinatario']").val(destinatario);
+        var template = ``;
+        $.ajax({
+            type: "POST",
+            url: "process.php",
+            data: {opcion: "GETASIGNATURAS", gpo: destinatario},
+            success: function (response) {
+                if(response == "NONE"){
+                    template = `
+                    <option value="es">Español</option>
+                    <option value="en">Ingles</option>
+                    <option value="co">Computación</option>
+                    <option value="ms">Música</option>
+                    <option value="ef">Deportes</option>`;
+                    $("#tipo").html(template);
+                }else{
+                    var data = JSON.parse(response);
+                    $.each(data, function (index, value) { 
+                        $.map(value, function (element, item) {
+                            template += `
+                            <option value="${element.tipo}">${element.materia}</option>`;
+                        });
+                    });
+                    $("#tipo").html(template);
+                }
+            }
+        });
     });
-    $("#tipo").change();
     $("#destinatario").change();
+    $("#tipo").change();
 }
 var editor = function(){
     var textarea = $('#contenido').summernote({
