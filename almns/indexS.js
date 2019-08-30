@@ -165,27 +165,27 @@ var listar = function () {
     nuevo_Alm();
     obtener_data_editar("#tblgpo1a tbody", table1a, 1 ,'A');
     obtener_data_eliminar("#tblgpo1a tbody", table1a);
-    obtener_asignaturas("#tblgpo1a thead",1,'A');
+    //obtener_asignaturas("#tblgpo1a thead",1,'A');
 
     obtener_data_editar("#tblgpo1b tbody", table1b, 1 ,'B');
     obtener_data_eliminar("#tblgpo1b tbody", table1b);
-    obtener_asignaturas("#tblgpo1b thead",1,'B');
+    //obtener_asignaturas("#tblgpo1b thead",1,'B');
 
     obtener_data_editar("#tblgpo2a tbody", table2a, 2 ,'A');
     obtener_data_eliminar("#tblgpo2a tbody", table2a);
-    obtener_asignaturas("#tblgpo2a thead",2,'A');
+    //obtener_asignaturas("#tblgpo2a thead",2,'A');
     
     obtener_data_editar("#tblgpo2b tbody", table2b, 2 ,'B');
     obtener_data_eliminar("#tblgpo2b tbody", table2b);
-    obtener_asignaturas("#tblgpo2b thead",2,'B');
+    //obtener_asignaturas("#tblgpo2b thead",2,'B');
     
     obtener_data_editar("#tblgpo3a tbody", table3a, 3 ,'A');
     obtener_data_eliminar("#tblgpo3a tbody", table3a);
-    obtener_asignaturas("#tblgpo3a thead",3,'A');
+    //obtener_asignaturas("#tblgpo3a thead",3,'A');
     
     obtener_data_editar("#tblgpo3b tbody", table3b, 3 ,'B');
     obtener_data_eliminar("#tblgpo3b tbody", table3b);
-    obtener_asignaturas("#tblgpo3b thead",3,'B');
+    //obtener_asignaturas("#tblgpo3b thead",3,'B');
     
 }
 var nuevo_Alm = function () {
