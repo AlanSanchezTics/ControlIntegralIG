@@ -6,7 +6,7 @@ session_start();
 if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S' && isset($_POST["tipo"])){
     include '../database.php';
         $sql ="";
-        $json = array();
+        $json = ["data"=>[]];
 
         switch ($_POST['tipo']) {
             case 'Generales':

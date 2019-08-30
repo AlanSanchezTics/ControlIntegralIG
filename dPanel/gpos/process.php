@@ -9,7 +9,7 @@
         if(!$result)
             die("SQL ERROR: ".mysqli_error($conn));
 
-        $json = array();
+        $json = ["data"=>[]];
         while($row = mysqli_fetch_array($result)){
             $json["data"][] = array(
                 'noControl' => $row[0],

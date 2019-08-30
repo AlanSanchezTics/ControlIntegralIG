@@ -9,7 +9,7 @@ function getDocs(){
     if(!$result){
         die("SQL ERROR 5: ".mysqli_error($conn));
     }
-    $json = array();
+    $json = ["data"=>[]];
     while($row = mysqli_fetch_array($result)){
         $json["data"][] = array(
             'id' => $row[0],
@@ -28,7 +28,7 @@ function obtenerTareas($idgrupo){
     if(!$result){
         die("SQL ERROR 27: ".mysqli_error($conn));
     }
-    $json = array();
+    $json = ["data"=>[]];
     while($row = mysqli_fetch_array($result)){
         $fe = date_create($row[6]);
         $fi = date_create($row[7]." ".$row[9]);

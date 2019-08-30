@@ -13,7 +13,7 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S'){
         die("Query Failed ". mysqli_error($conn));
     }
     
-    $json = array();
+    $json = ["data"=>[]];
         while($row = mysqli_fetch_array($result)){
             $json["data"][] = array(
                 'id' => $row[0],

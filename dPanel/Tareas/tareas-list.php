@@ -11,7 +11,7 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST['nivel']))
     if(!$result)
         die("SQL ERROR: ".mysqli_error($conn));
 
-    $json = array();
+    $json = ["data"=>[]];
     while ($row = mysqli_fetch_array($result)) {
         $fi = date_create($row[3]);
         $fe = date_create($row[4]);

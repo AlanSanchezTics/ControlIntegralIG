@@ -9,7 +9,7 @@ function getGpos($idDoc){
     if(!$result){
         die("Query Failed ". mysqli_error($conn));
     }
-    $json = array();
+    $json = ["data"=>[]];
     while($row = mysqli_fetch_array($result)){
         $json["data"][] = array(
             'id' => $row[0],
@@ -55,7 +55,7 @@ function getAsignaturas($idDoc, $grupo)
     if(!$result){
         die("Query Failed ". mysqli_error($conn));
     }
-    $json = array();
+    $json = ["data"=>[]];
     while($row = mysqli_fetch_array($result)){
         $json["data"][] = array(
             'id' => $row[0],
@@ -72,7 +72,7 @@ function getTareas($idDoc){
     if(!$result)
         die("SQL ERROR: ".mysqli_error($conn));
 
-    $json = array();
+    $json = ["data"=>[]];
     while ($row = mysqli_fetch_array($result)) {
         $fi = date_create($row[3]);
         $fe = date_create($row[4]);

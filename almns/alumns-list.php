@@ -12,7 +12,7 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='S' && isset($_POST["gdo"]) &&
             die("Query Failed ". mysqli_error($conn));
         }
 
-        $json = array();
+        $json = ["data"=>[]];
         while($row = mysqli_fetch_array($result)){
             $json["data"][] = array(
                 'noControl' => $row[0],
