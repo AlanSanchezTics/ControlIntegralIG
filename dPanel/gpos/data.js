@@ -75,9 +75,6 @@ var listar = function () {
                 });
             });
             $("table").width("100%");
-            setInterval( function () {
-                tablaTareas.ajax.reload( null, false ); // user paging is not reset on reload
-            }, 5000 );
         }
     });
 }

@@ -53,6 +53,7 @@
             .d-sm-block {
                 display: block !important
             }
+
             .d-sm-none {
                 display: none !important
             }
@@ -118,13 +119,16 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="../../images/user3.jpg" alt=""><span style="color:#D9DEE4; font-weight: bold;">
-                                    <?php echo $_SESSION["NOMBRE"]; ?></span>
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../../images/user3.jpg" alt=""><span
+                                        style="color:#D9DEE4; font-weight: bold;">
+                                        <?php echo $_SESSION["NOMBRE"]; ?></span>
                                     <span class=" fa fa-angle-down" style="color:#D9DEE4; font-weight: bold;"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a></li>
+                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -153,11 +157,11 @@
                             <div class="x_content">
                                 <div class="table-responsive" role="tabpanel" data-example-id="togglable-tabs">
                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                        
-                                    </ul>
-                                    <div id="myTabContent" class="tab-content">
 
-                                    </div>
+                                    </ul>
+                                </div>
+                                <div id="myTabContent" class="tab-content">
+
                                 </div>
                             </div>
                         </div>
