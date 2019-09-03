@@ -23,6 +23,21 @@ $(document).ready(function () {
 var listar = function () {
     var table1a = $("#tblgpo1a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("1°A - Preescolar | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -46,6 +61,21 @@ var listar = function () {
     getDocs("A", 1, "#tblgpo1a thead tr th span.ing", "#tblgpo1a thead tr th span.esp");
     var table2a = $("#tblgpo2a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("2°A - Preescolar | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -69,6 +99,21 @@ var listar = function () {
     getDocs("A", 2, "#tblgpo2a thead tr th span.ing", "#tblgpo2a thead tr th span.esp");
     var table2b = $("#tblgpo2b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("2°B - Preescolar | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -92,6 +137,21 @@ var listar = function () {
     getDocs("B", 2, "#tblgpo2b thead tr th span.ing", "#tblgpo2b thead tr th span.esp");
     var table3a = $("#tblgpo3a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("3°A - Preescolar | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -115,6 +175,21 @@ var listar = function () {
     getDocs("A", 3, "#tblgpo3a thead tr th span.ing", "#tblgpo3a thead tr th span.esp");
     var table3b = $("#tblgpo3b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("3°B - Preescolar | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -154,6 +229,13 @@ var listar = function () {
     
     obtener_data_editar("#tblgpo3b tbody", table3b, 3 ,'B');
     obtener_data_eliminar("#tblgpo3b tbody", table3b);
+    setInterval( function () {
+        table1a.ajax.reload( null, false ); // user paging is not reset on reload
+        table2a.ajax.reload( null, false );
+        table2b.ajax.reload( null, false );
+        table3a.ajax.reload( null, false );
+        table3b.ajax.reload( null, false );
+    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

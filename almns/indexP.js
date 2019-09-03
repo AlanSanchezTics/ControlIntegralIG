@@ -23,6 +23,21 @@ $(document).ready(function () {
 var listar = function () {
     var table1a = $("#tblgpo1a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("1°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -47,6 +62,21 @@ var listar = function () {
     
     var table1b = $("#tblgpo1b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("1°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -71,6 +101,21 @@ var listar = function () {
 
     var table2a = $("#tblgpo2a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("2°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -95,6 +140,21 @@ var listar = function () {
     
     var table2b = $("#tblgpo2b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("2°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -119,6 +179,21 @@ var listar = function () {
     
     var table3a = $("#tblgpo3a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("3°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -143,6 +218,21 @@ var listar = function () {
     
     var table3b = $("#tblgpo3b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("3°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -167,6 +257,21 @@ var listar = function () {
     
     var table4a = $("#tblgpo4a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("4°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -191,6 +296,21 @@ var listar = function () {
     
     var table4b = $("#tblgpo4b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("4°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -215,6 +335,21 @@ var listar = function () {
     
     var table5a = $("#tblgpo5a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("5°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -239,6 +374,21 @@ var listar = function () {
     
     var table5b = $("#tblgpo5b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("5°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -263,6 +413,21 @@ var listar = function () {
     
     var table6a = $("#tblgpo6a").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("6°A - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -287,6 +452,21 @@ var listar = function () {
     
     var table6b = $("#tblgpo6b").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("6°B - Primaria | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -337,6 +517,20 @@ var listar = function () {
     obtener_data_eliminar("#tblgpo6a tbody", table6a);
     obtener_data_editar("#tblgpo6b tbody", table6b, 6 ,'B');
     obtener_data_eliminar("#tblgpo6b tbody", table6b);
+    setInterval( function () {
+        table1a.ajax.reload( null, false ); // user paging is not reset on reload
+        table1b.ajax.reload( null, false );
+        table2a.ajax.reload( null, false );
+        table2b.ajax.reload( null, false );
+        table3a.ajax.reload( null, false );
+        table3b.ajax.reload( null, false );
+        table4a.ajax.reload( null, false );
+        table4b.ajax.reload( null, false );
+        table5a.ajax.reload( null, false );
+        table5b.ajax.reload( null, false );
+        table6a.ajax.reload( null, false );
+        table6b.ajax.reload( null, false );
+    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

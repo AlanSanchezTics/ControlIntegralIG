@@ -23,6 +23,21 @@ $(document).ready(function () {
 var listar = function () {
     var table1a = $("#tblpre").DataTable({
         destroy: true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Imprimir Lista',
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="https://www.ciaigandhi.com/images/user3.png" style="position:absolute; top:0; left:0; opacity: 0.07;" />'
+                        );
+                        $(win.document.body).find( 'h1' ).html("Pre Kinder | Mis Grupos");
+                }
+            }
+        ],
         responsive: true,
         language: langSpa,
         ajax: {
@@ -49,6 +64,9 @@ var listar = function () {
     buscar_data();
     obtener_data_editar("#tblpre tbody", table1a, 0 ,'A');
     obtener_data_eliminar("#tblpre tbody", table1a);
+    setInterval( function () {
+        table1a.ajax.reload( null, false ); // user paging is not reset on reload
+    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

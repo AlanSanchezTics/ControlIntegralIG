@@ -28,11 +28,13 @@
     <!--DataTables-->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="../vendors/nprogress/nprogress.css">
     <script src="../vendors/nprogress/nprogress.js"></script>
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
+    
     <!--Floating button-->
     <link rel="stylesheet" href="../vendors/floating-button/floating-button.css">
     <style>
@@ -409,6 +411,9 @@
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
     <!--Floating button-->
     <script src="../vendors/floating-button/floating-button.js"></script>
     <!-- Custom Theme Scripts -->
