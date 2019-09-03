@@ -1,6 +1,51 @@
 <?php
     include_once '../error_log.php';
     set_error_handler('error');
+    function setNivel($e){
+        $nivel = "";
+        switch ($e) {
+            case '0':
+                $nivel = "Pre Kinder";
+                break;
+            case '1':
+                $nivel = "Preescolar";
+                break;
+            case '2':
+                $nivel = "Primaria";
+                break;
+            case '3':
+                $nivel = "Secundaria";
+                break;
+        }
+        return $nivel;
+    }
+    function getAlumno($no_control){
+        include '../database.php';
+        $sql = "SELECT tbl_alumnos.ID_ALUMNO,tbl_alumnos.NOMBRE, tbl_alumnos.A_PATERNO, tbl_alumnos.A_MATERNO, tbl_alumnos.TEL, tbl_alumnos.EMAIL, tbl_usuarios.LOGIN, tbl_usuarios.ID_USUARIO, tbl_alumnos.FECHA_INGRESO, tbl_alumnos.FECHA_EGRESO,tbl_alumnos.imagen, tbl_grupos.GRADO, tbl_grupos.NOMBRE, tbl_grupos.NIVEL, tbl_alumnos.EXISTE FROM `tbl_asignaciongrupos`,tbl_alumnos,tbl_grupos, tbl_usuarios WHERE tbl_alumnos.ID_USUARIO=tbl_usuarios.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO = tbl_grupos.ID_GRUPO AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND tbl_alumnos.ID_ALUMNO = {$no_control}";
+        $result = mysqli_query($conn, $sql);
+        
+        if(mysqli_num_rows($result) > 0 ){
+            if($row = mysqli_fetch_array($result)){
+                $json[] = array(
+                    'id' => $row[0],
+                    'nombre' => $row[1]." ".$row[2]." ".$row[3],
+                    'telefono' => $row[4],
+                    'email' => $row[5],
+                    'usuario' => $row[6],
+                    'fi'=> $row[8],
+                    'fe' => $row[9],
+                    'imagen'=> $row[10],
+                    'grado' => $row[11],
+                    'grupo' =>$row[12],
+                    'nivel' => setNivel($row[13]),
+                    'estado' => ($row[14]==0 ? "Desactivado":"Activo")
+                ); 
+            }
+            echo json_encode($json);
+        }else{
+            echo json_encode("empty");
+        }
+    }
     function getDocs($gpo, $gdo, $nivel){
         include '../database.php';
         $sqldoce = "SELECT tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO FROM `tbl_grupos`,tbl_docentes WHERE tbl_grupos.ID_DOCENTE_E = tbl_docentes.ID_DOCENTE AND NIVEL={$nivel} AND GRADO= {$gdo} AND tbl_grupos.NOMBRE='{$gpo}'";
@@ -220,6 +265,10 @@
                 $iduser = $_POST["iduser"];
                 $no_control = $_POST['ncontrol'];
                 borrarAlumno($no_control, $iduser);
+                break;
+            case 'BUSCAR':
+                $no_control = $_POST["ncontrol"];
+                getAlumno($no_control);
                 break;
         }
     }else{

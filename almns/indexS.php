@@ -33,6 +33,8 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendors/sweetalert/sweetalert.css">
+    <!--Floating button-->
+    <link rel="stylesheet" href="../vendors/floating-button/floating-button.css">
     <style>
         .right_col {
             color: black !important;
@@ -50,17 +52,21 @@
             .d-sm-block {
                 display: block !important
             }
+
             .d-sm-none {
                 display: none !important
             }
         }
-        .help-box{
+
+        .help-box {
             color: red;
         }
-        .min{
+
+        .min {
             max-width: 20px;
         }
-        .max{
+
+        .max {
             min-width: 47px;
         }
     </style>
@@ -102,7 +108,8 @@
                                 </li>
                                 <li><a href="../doc/"><i class="fas fa-chalkboard-teacher"></i>Docentes</a>
                                 </li>
-                                <li class="active"><a><i class="fas fa-user-graduate"></i>Alumnos <span class="fa fa-chevron-down"></span></a>
+                                <li class="active"><a><i class="fas fa-user-graduate"></i>Alumnos <span
+                                            class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: block;">
                                         <li><a href="indexPK">Pre kinder</a></li>
                                         <li><a href="indexK">Preescolar</a></li>
@@ -136,12 +143,15 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="../images/user3.jpg" alt=""><span style="color:#D9DEE4; font-weight: bold;"><?php echo $_SESSION['NOMBRE']; ?></span>
-                                    <span class=" fa fa-angle-down" style="color:#D9DEE4; font-weight: bold;"></span>
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="../images/user3.jpg" alt=""><span
+                                        style="color:#D9DEE4; font-weight: bold;"><?php echo $_SESSION['NOMBRE']; ?></span>
+                                    <span class="fa fa-angle-down" style="color:#D9DEE4; font-weight: bold;"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a></li>
+                                    <li><a class="logout"><i class="fa fa-sign-out-alt pull-right"></i>Cerrar sesión</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -164,9 +174,6 @@
                             <div class="x_title">
                                 <h2>Lista de Alumnos Activos</h2>
                                 <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
-                                    <li><a id="addAlm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Agregar Alumno">
-                                            <span class="fa fa-user-plus" aria-hidden="true" style="color:green;"></span>
-                                        </a></li>
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                 </ul>
                                 <div class="clearfix"></div>
@@ -174,8 +181,8 @@
                             <div class="x_content">
                                 <div class="table-responsive" role="tabpanel" data-example-id="togglable-tabs">
                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#tab_content1A" id="1A-tab" role="tab"
-                                                data-toggle="tab" aria-expanded="true">1°A</a>
+                                        <li role="presentation" class="active"><a href="#tab_content1A" id="1A-tab"
+                                                role="tab" data-toggle="tab" aria-expanded="true">1°A</a>
                                         </li>
                                         <li role="presentation" class=""><a href="#tab_content1B" role="tab" id="1B-tab"
                                                 data-toggle="tab" aria-expanded="false">1°B</a>
@@ -194,13 +201,18 @@
                                         </li>
                                     </ul>
                                     <div id="myTabContent" class="tab-content">
-                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1A" aria-labelledby="home-tab">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1A"
+                                            aria-labelledby="home-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo1a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas"><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-asignaturas"><i
+                                                                        class="fas fa-chalkboard-teacher"></i> Ver
+                                                                    docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -220,13 +232,17 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_content1B" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content1B"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo1b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal" data-target="#modal-asignaturas"
+                                                                    disabled><i class="fas fa-chalkboard-teacher"></i>
+                                                                    Ver docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -246,13 +262,17 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_content2A" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content2A"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo2a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal" data-target="#modal-asignaturas"
+                                                                    disabled><i class="fas fa-chalkboard-teacher"></i>
+                                                                    Ver docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -272,13 +292,17 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_content2B" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content2B"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo2b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal" data-target="#modal-asignaturas"
+                                                                    disabled><i class="fas fa-chalkboard-teacher"></i>
+                                                                    Ver docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -298,13 +322,17 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3A" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3A"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo3a" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal" data-target="#modal-asignaturas"
+                                                                    disabled><i class="fas fa-chalkboard-teacher"></i>
+                                                                    Ver docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -323,13 +351,17 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3B" aria-labelledby="profile-tab">
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3B"
+                                            aria-labelledby="profile-tab">
                                             <div class="table-responsive">
                                                 <table id="tblgpo3b" class="table table-hover table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="10">
-                                                                <button title="Docentes" class="btn btn-primary asig" data-toggle="modal" data-target="#modal-asignaturas" disabled><i class="fas fa-chalkboard-teacher"></i> Ver docentes Asignados</button>
+                                                                <button title="Docentes" class="btn btn-primary asig"
+                                                                    data-toggle="modal" data-target="#modal-asignaturas"
+                                                                    disabled><i class="fas fa-chalkboard-teacher"></i>
+                                                                    Ver docentes Asignados</button>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -365,7 +397,8 @@
             <form id="alum-form" class="form-horizontal form-label-left input_mask">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-title">Datos del Alumno</h4>
                     </div>
                     <div class="modal-body">
@@ -379,34 +412,38 @@
                             </div>
                         </div>
                         <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                    <label for="preview">Fotografia</label>
-                                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
-                                    <span class="fa fa-images form-control-feedback right" aria-hidden="true"></span>
-                                </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <label for="preview">Fotografia</label>
+                                <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
+                                <span class="fa fa-images form-control-feedback right" aria-hidden="true"></span>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <label for="NoControl">No. de control</label>
-                                <input type="tel" name="ncontrol" id="NoControl" placeholder="No. de control" class="form-control" required>
+                                <input type="tel" name="ncontrol" id="NoControl" placeholder="No. de control"
+                                    class="form-control" required>
                                 <span class="fa fa-hashtag form-control-feedback right" aria-hidden="true"></span>
                                 <div id="help-block01" class="help-box"></div>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre"
+                                    required>
                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                 <div class="help-box" id="help-block02"></div>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
                                 <label for="a-paterno">Apellido Paterno</label>
-                                <input type="text" class="form-control" id="a-paterno" name="a-paterno" placeholder="Apellido Paterno" required>
+                                <input type="text" class="form-control" id="a-paterno" name="a-paterno"
+                                    placeholder="Apellido Paterno" required>
                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                 <div class="help-box" id="help-block03"></div>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
                                 <label for="a-materno">Apellido Materno</label>
-                                <input type="text" class="form-control" id="a-materno" name="a-materno" placeholder="Apellido Materno">
+                                <input type="text" class="form-control" id="a-materno" name="a-materno"
+                                    placeholder="Apellido Materno">
                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                 <div class="help-box" id="help-block04"></div>
                             </div>
@@ -420,7 +457,8 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="telefono">Telefono</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Telefono">
+                                <input type="tel" class="form-control" id="telefono" name="telefono"
+                                    placeholder="Telefono">
                                 <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
                                 <div id="help-block06" class="help-box"></div>
                             </div>
@@ -455,13 +493,15 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Fecha de Ingreso</label>
-                                <input type="date" name="fechaI" id="fechaI" class="form-control has-feedback-left" style="padding-right: 0px;" required>
+                                <input type="date" name="fechaI" id="fechaI" class="form-control has-feedback-left"
+                                    style="padding-right: 0px;" required>
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <div id="help-block10" class="help-box"></div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="fechaI">Fecha de Egreso</label>
-                                <input type="date" name="fechaF" id="fechaF" class="form-control has-feedback-left" style="padding-right: 0px;">
+                                <input type="date" name="fechaF" id="fechaF" class="form-control has-feedback-left"
+                                    style="padding-right: 0px;">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <div id="help-block11" class="help-box"></div>
                             </div>
@@ -481,7 +521,8 @@
             <form id="form-delete">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modal-title">Mensaje de Confirmación</h4>
                     </div>
                     <div class="modal-body">
@@ -504,22 +545,23 @@
     <!--ModalDocentes-->
     <div class="modal fade" id="modal-asignaturas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modal-title">Asignaturas del grupo</h4>
-                    </div>
-                    <div class="modal-body">
-                        <table id="tbl-asignaturas" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Asignatura</th>
-                                    <th>Docente</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-title">Asignaturas del grupo</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="tbl-asignaturas" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Asignatura</th>
+                                <th>Docente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
                                     include '../database.php';
                                     $sql = "SELECT tbl_materias.ID_MATERIA, tbl_materias.NOMBRE_MATERIA, tbl_docentes.NOMBRE, tbl_docentes.A_PATERNO, tbl_docentes.A_MATERNO, tbl_materias.ID_DOCENTE FROM tbl_materias, tbl_docentes WHERE tbl_materias.ID_DOCENTE = tbl_docentes.ID_DOCENTE AND tbl_docentes.EXISTE = 1 AND tbl_materias.EXISTE = 1";
                                     $result = mysqli_query($conn,$sql);
@@ -539,13 +581,55 @@
                                         }
                                     }
                                 ?>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
     </div>
     <!--/ModalDocentes-->
+    <!--ModalBuscador-->
+    <div class="modal fade" id="modal-buscar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-title">Buscar Alumno</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="frm-buscar" class="form-horizontal form-label-left input_mask">
+                        <input type="hidden" name="opcion" value="BUSCAR">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
+                                <input type="tel" name="ncontrol" id="NoControl"
+                                    placeholder="Ingresa ID o No. de control" class="form-control" required>
+                                <span class="fa fa-hashtag form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-12 form-group has-feedback">
+                                <button type="submit" class="btn btn-block btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="result-search" style="margin-right: 3rem; margin-left: 3rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ModalBuscador-->
+    <div class="fixed-action-btn">
+        <a class="mbtn-floating mbtn-large" style="background: #2B59B4 !important;" data-toggle="tooltip"
+            data-placement="left" data-original-title="Menu">
+            <i class="large fas fa-bars"></i>
+        </a>
+        <ul>
+            <li><a id="searchAlm" class="mbtn-floating" style="background: #002d62 !important;" data-toggle="tooltip"
+                    data-placement="left" data-original-title="Buscar Alumno de manera general"><i
+                        class="fas fa-search"></i></a></li>
+            <li><a id="addAlm" class="mbtn-floating" style="background: #FFD417 !important;" data-toggle="tooltip"
+                    data-placement="left" data-original-title="Agregar Alumno"><i class="fas fa-user-plus"></i></a></li>
+        </ul>
+    </div>
     <!-- jQuery-->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap-->
@@ -555,6 +639,8 @@
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <!--Floating button-->
+    <script src="../vendors/floating-button/floating-button.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../vendors/sweetalert/sweetalert.min.js"></script>
     <script src="../build/js/custom.js"></script>

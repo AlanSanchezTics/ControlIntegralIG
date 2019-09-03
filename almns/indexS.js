@@ -163,6 +163,8 @@ var listar = function () {
     getDocs("B", 3, "#tblgpo3b thead tr th span.ing", "#tblgpo3b thead tr th span.esp");
     $("table").width("100%");
     nuevo_Alm();
+    buscar_Alm();
+    buscar_data();
     obtener_data_editar("#tblgpo1a tbody", table1a, 1 ,'A');
     obtener_data_eliminar("#tblgpo1a tbody", table1a);
     //obtener_asignaturas("#tblgpo1a thead",1,'A');
@@ -186,12 +188,20 @@ var listar = function () {
     obtener_data_editar("#tblgpo3b tbody", table3b, 3 ,'B');
     obtener_data_eliminar("#tblgpo3b tbody", table3b);
     //obtener_asignaturas("#tblgpo3b thead",3,'B');
-    
+    $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {
     $("#addAlm").on("click", function () {
         limpiar_forms();
         $("#modal-form").modal("show");
+    });
+}
+var buscar_Alm = function () {
+    $("#searchAlm").on('click', function () {
+        $("#result-search").html('');
+        $('#frm-buscar').trigger("reset");
+        $("#modal-buscar").modal("show");
+
     });
 }
 var getDocs = function (gpo, gdo, labeling, labelesp) {
@@ -259,6 +269,84 @@ var guardarData = function () {
             },
             processData: false,
             contentType: false,
+        });
+    });
+}
+var buscar_data = function () {
+    $("#frm-buscar").on('submit', function (e) {
+        $("#result-search").html('');
+        var $btn = $("#frm-buscar button[type='submit']").button('loading');
+        e.preventDefault();
+        var frm = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "process.php",
+            data: frm,
+            success: function (response) {
+                var data = JSON.parse(response);
+                var template = ``;
+                $btn.button('reset');
+                if(data == "empty"){
+                    swal({
+                    title:'Sin resultados',
+                    text: 'No obtuvimos datos de ningun alumno con ese No. de control.',
+                    type: 'warning'
+                    });
+                    return;
+                }
+                $.map(data, function (value, index) {
+                    template = `
+                    <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 style="text-align: center;">Datos del Alumno</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12" align="center">
+                                <img src="${value.imagen}" alt="Fotografia">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1.5rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Nombre: ${value.nombre}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Grupo: ${value.grado}°${value.grupo}</label>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Nivel: ${value.nivel}</label>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Estado: ${value.estado}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Ingreso: ${value.fi}</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Egreso: ${value.fe}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Correo: ${value.email}</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 1rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Telefono: ${value.telefono}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 1.5rem;" align="center">
+                                <label style="font-size: 1.5rem; color: black;">Clave ´para CIAIGapp: ${value.usuario}</label>
+                            </div>
+                        </div>
+                    `;
+                });
+                $("#result-search").html(template);
+            }
         });
     });
 }
