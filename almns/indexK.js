@@ -229,13 +229,6 @@ var listar = function () {
     
     obtener_data_editar("#tblgpo3b tbody", table3b, 3 ,'B');
     obtener_data_eliminar("#tblgpo3b tbody", table3b);
-    setInterval( function () {
-        table1a.ajax.reload( null, false ); // user paging is not reset on reload
-        table2a.ajax.reload( null, false );
-        table2b.ajax.reload( null, false );
-        table3a.ajax.reload( null, false );
-        table3b.ajax.reload( null, false );
-    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

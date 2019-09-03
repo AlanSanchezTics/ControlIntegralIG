@@ -203,9 +203,6 @@ var listar = function () {
     obtener_data_editar("#tblgpo3b tbody", table3b, 3 ,'B');
     obtener_data_eliminar("#tblgpo3b tbody", table3b);
     //obtener_asignaturas("#tblgpo3b thead",3,'B');
-    setInterval( function () {
-        table1a.ajax.reload( null, false ); // user paging is not reset on reload
-    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

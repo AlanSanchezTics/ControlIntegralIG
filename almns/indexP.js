@@ -517,20 +517,6 @@ var listar = function () {
     obtener_data_eliminar("#tblgpo6a tbody", table6a);
     obtener_data_editar("#tblgpo6b tbody", table6b, 6 ,'B');
     obtener_data_eliminar("#tblgpo6b tbody", table6b);
-    setInterval( function () {
-        table1a.ajax.reload( null, false ); // user paging is not reset on reload
-        table1b.ajax.reload( null, false );
-        table2a.ajax.reload( null, false );
-        table2b.ajax.reload( null, false );
-        table3a.ajax.reload( null, false );
-        table3b.ajax.reload( null, false );
-        table4a.ajax.reload( null, false );
-        table4b.ajax.reload( null, false );
-        table5a.ajax.reload( null, false );
-        table5b.ajax.reload( null, false );
-        table6a.ajax.reload( null, false );
-        table6b.ajax.reload( null, false );
-    }, 5000 );
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {

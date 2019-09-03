@@ -64,9 +64,7 @@ var listar = function () {
     buscar_data();
     obtener_data_editar("#tblpre tbody", table1a, 0 ,'A');
     obtener_data_eliminar("#tblpre tbody", table1a);
-    setInterval( function () {
-        table1a.ajax.reload( null, false ); // user paging is not reset on reload
-    }, 5000 );
+
     $('.fixed-action-btn').floatingActionButton();
 }
 var nuevo_Alm = function () {
