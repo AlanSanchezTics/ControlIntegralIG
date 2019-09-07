@@ -452,7 +452,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                                 <span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
                                 <div id="help-block05" class="help-box"></div>
                             </div>
