@@ -65,22 +65,22 @@ function postAviso($tipo,$destinatario,$titulo,$contenido,$fechai,$fechaf,$estad
     }
     switch ($tipo) {
         case 'general':
-            $sql = "INSERT INTO tbl_avisosgenerales(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 13:00:00',{$estado},$idadmin,1)";
+            $sql = "INSERT INTO tbl_avisosgenerales(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 23:00:00',{$estado},$idadmin,1)";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios WHERE USUTIPO = 'A' AND EXISTE = 1 AND TOKEN <> '' AND LENGTH(TOKEN) < 50 ";
             $tabla = "tbl_avisosgenerales";
             break;
         case 'nivel':
-            $sql = "INSERT INTO tbl_avisos_nivel(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,nivel,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 13:00:00',{$estado},$idadmin,$destinatario,1)";
+            $sql = "INSERT INTO tbl_avisos_nivel(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,nivel,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 23:00:00',{$estado},$idadmin,$destinatario,1)";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.NIVEL=$destinatario AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_nivel";
             break;
         case 'grupo':
-            $sql = "INSERT INTO tbl_avisos_grupo(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,id_grupo,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 13:00:00',{$estado},$idadmin,$destinatario,1)";
+            $sql = "INSERT INTO tbl_avisos_grupo(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,id_grupo,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 23:00:00',{$estado},$idadmin,$destinatario,1)";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos, tbl_asignaciongrupos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO = $destinatario AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_grupo";
             break;
         case 'alumno':
-            $sql = "INSERT INTO tbl_avisos_alumno(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,id_alumno,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 13:00:00',{$estado},$idadmin,$destinatario,1)";
+            $sql = "INSERT INTO tbl_avisos_alumno(titulo_aviso,descripcion_aviso,imagen_aviso,fecha_inicial,fecha_final,programado,id_admin,id_alumno,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechai}','{$fechaf} 23:00:00',{$estado},$idadmin,$destinatario,1)";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_ALUMNO=$destinatario AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_alumno";
             break;
@@ -144,22 +144,22 @@ function repostAviso($tipo,$destinatario,$idAviso,$notificar,$titulo,$contenido,
     }
     switch ($tipo) {
         case 'general':
-            $sql = "UPDATE tbl_avisosgenerales SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 13:00:00', ID_ADMIN=$idadmin WHERE ID_AVISO = $idAviso";
+            $sql = "UPDATE tbl_avisosgenerales SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 23:00:00', ID_ADMIN=$idadmin WHERE ID_AVISO = $idAviso";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios WHERE USUTIPO = 'A' AND EXISTE = 1 AND TOKEN <> '' AND LENGTH(TOKEN) < 50 ";
             $tabla = "tbl_avisosgenerales";
             break;
         case 'nivel':
-            $sql = "UPDATE tbl_avisos_nivel SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}',	FECHA_FINAL='{$fechaf} 13:00:00', ID_ADMIN=$idadmin, NIVEL=$destinatario WHERE ID_AVISO = $idAviso";
+            $sql = "UPDATE tbl_avisos_nivel SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}',	FECHA_FINAL='{$fechaf} 23:00:00', ID_ADMIN=$idadmin, NIVEL=$destinatario WHERE ID_AVISO = $idAviso";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.NIVEL=$destinatario AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_nivel";
             break;
         case 'grupo':
-            $sql = "UPDATE tbl_avisos_grupo SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 13:00:00', ID_ADMIN=$idadmin, ID_GRUPO=$destinatario WHERE ID_AVISO = $idAviso";
+            $sql = "UPDATE tbl_avisos_grupo SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 23:00:00', ID_ADMIN=$idadmin, ID_GRUPO=$destinatario WHERE ID_AVISO = $idAviso";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos, tbl_asignaciongrupos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND tbl_asignaciongrupos.ID_GRUPO = $destinatario AND tbl_asignaciongrupos.ID_ALUMNO = tbl_alumnos.ID_ALUMNO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_grupo";
             break;
         case 'alumno':
-            $sql = "UPDATE tbl_avisos_alumno SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 13:00:00', ID_ADMIN=$idadmin, ID_ALUMNO=$destinatario WHERE ID_AVISO = $idAviso";
+            $sql = "UPDATE tbl_avisos_alumno SET TITULO_AVISO='{$titulo}', DESCRIPCION_AVISO='{$contenido}', IMAGEN_AVISO='{$imagen}', FECHA_INICIAL='{$fechai}', FECHA_FINAL='{$fechaf} 23:00:00', ID_ADMIN=$idadmin, ID_ALUMNO=$destinatario WHERE ID_AVISO = $idAviso";
             $sqlTokens = "SELECT TOKEN FROM tbl_usuarios, tbl_alumnos WHERE USUTIPO = 'A' AND tbl_usuarios.EXISTE = 1 AND TOKEN <> '' AND tbl_alumnos.ID_ALUMNO=$destinatario AND tbl_alumnos.ID_USUARIO = tbl_usuarios.ID_USUARIO AND LENGTH(TOKEN) < 50";
             $tabla = "tbl_avisos_alumno";
             break;

@@ -15,7 +15,16 @@
         
         if($result){
             if($reg = mysqli_fetch_array($result)){
-                $arreglo = array('idAlumno' => $reg["ID_ALUMNO"], 'idUsuario' => $reg["ID_USUARIO"],'name' =>$reg["NOMBRE"], 'apat' =>$reg["A_PATERNO"], 'amat' => $reg["A_MATERNO"], 'grado' => $reg["GRADO"], 'grupo' =>$reg["Grupo"], 'idGrupo' =>$reg["ID_GRUPO"] );
+                $arreglo = array(
+                    'idAlumno' => $reg["ID_ALUMNO"], 
+                    'idUsuario' => $reg["ID_USUARIO"],
+                    'name' =>$reg["NOMBRE"], 
+                    'apat' =>$reg["A_PATERNO"], 
+                    'amat' => $reg["A_MATERNO"], 
+                    'grado' => $reg["GRADO"], 
+                    'grupo' =>$reg["Grupo"], 
+                    'idGrupo' =>$reg["ID_GRUPO"] 
+                );
                 $id=$reg["ID_USUARIO"];
                 $sql1 = "UPDATE tbl_usuarios SET TOKEN='{$token}' WHERE ID_USUARIO = '{$id}'";
                 mysqli_query($conexion,$sql1);

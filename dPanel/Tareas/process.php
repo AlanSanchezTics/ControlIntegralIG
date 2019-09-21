@@ -174,7 +174,7 @@ function postTarea($titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$i
     if($estado == 0){
         $hora = date("H:i:s");
     }
-    $sql ="INSERT INTO tbl_tareas(titulo_tarea,descripcion_tarea,imagen_tarea,fecha_creacion,fecha_entrega,hora_inicio,programado,id_grupo,tipo_tarea,id_docente,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechaI}','{$fechaF} 13:00:00','{$hora}',{$estado},{$grupo},'{$materia}',{$idDoc},1)";
+    $sql ="INSERT INTO tbl_tareas(titulo_tarea,descripcion_tarea,imagen_tarea,fecha_creacion,fecha_entrega,hora_inicio,programado,id_grupo,tipo_tarea,id_docente,existe) VALUES('{$titulo}','{$contenido}','{$imagen}','{$fechaI}','{$fechaF} 23:00:00','{$hora}',{$estado},{$grupo},'{$materia}',{$idDoc},1)";
     if(mysqli_query($conn,$sql)===FALSE){
         $error = mysqli_error($conn);
         mysqli_rollback($conn);
@@ -235,7 +235,7 @@ function repostTarea($idTarea,$titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,
     if($estado == 0){
         $hora = date("H:i:s");
     }
-    $sql = "UPDATE tbl_tareas SET TITULO_TAREA = '{$titulo}', DESCRIPCION_TAREA='{$contenido}',IMAGEN_TAREA='{$imagen}',FECHA_CREACION='{$fechaI}',FECHA_ENTREGA='{$fechaF} 13:00:00',HORA_INICIO = '{$hora}',ID_GRUPO={$grupo},TIPO_TAREA='{$materia}',ID_DOCENTE={$idDoc} WHERE ID_TAREA = {$idTarea}";
+    $sql = "UPDATE tbl_tareas SET TITULO_TAREA = '{$titulo}', DESCRIPCION_TAREA='{$contenido}',IMAGEN_TAREA='{$imagen}',FECHA_CREACION='{$fechaI}',FECHA_ENTREGA='{$fechaF} 23:00:00',HORA_INICIO = '{$hora}',ID_GRUPO={$grupo},TIPO_TAREA='{$materia}',ID_DOCENTE={$idDoc} WHERE ID_TAREA = {$idTarea}";
     if(mysqli_query($conn,$sql)===FALSE){
         $error = mysqli_error($conn);
         mysqli_rollback($conn);

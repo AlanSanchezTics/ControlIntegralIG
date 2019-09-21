@@ -8,7 +8,7 @@ $alumno = $obj['idAlumno'];
 
 	include "database.php";
 	
-	$sql = "SELECT NOMBRE, A_PATERNO, A_MATERNO, GRADO, TEL, EMAIL, NIVEL, FECHA_INGRESO, FECHA_EGRESO, IMAGEN FROM tbl_alumnos WHERE ID_ALUMNO='{$alumno}' AND tbl_alumnos.EXISTE= 1";
+	$sql = "SELECT ID_ALUMNO, NOMBRE, A_PATERNO, A_MATERNO, GRADO, TEL, EMAIL, NIVEL, FECHA_INGRESO, FECHA_EGRESO, IMAGEN FROM tbl_alumnos WHERE ID_ALUMNO='{$alumno}' AND tbl_alumnos.EXISTE= 1";
 	$result = mysqli_query($conexion,$sql);
 	
 	if($sql){
