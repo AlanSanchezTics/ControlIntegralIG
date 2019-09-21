@@ -269,7 +269,7 @@ var changeCombos = function () {
                     $.each(data, function (index, value) { 
                         $.map(value, function (element, item) {
                             template += `
-                            <option value="${element.tipo}">${element.materia}</option>`;
+                            <option value="${element.materia}">${element.materia}</option>`;
                         });
                     });
                     $("#tipo").html(template);
