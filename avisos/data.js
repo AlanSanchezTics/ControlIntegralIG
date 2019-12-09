@@ -334,7 +334,16 @@ var editor = function(){
             ['links', ['link']],
             ['list', ['ul', 'ol']],
             ['misc', ['undo','redo']]
-        ]
+        ],
+        callbacks: { 
+            onPaste: function (e) { 
+                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text'); 
+                e.preventDefault();
+                setTimeout(function () {
+                    document.execCommand('insertText', false, bufferText); 
+                }, 10); 
+            } 
+        } 
     });
 }
 var setDestinatarios = function(e){
