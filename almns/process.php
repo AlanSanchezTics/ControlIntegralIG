@@ -153,7 +153,9 @@
             die('WRONGGROUP');
         }
         $idgrupo = mysqli_fetch_array($result);
-        $usuario = date("Y").$no_control;
+        $sql = "SELECT LOGIN FROM tbl_usuarios WHERE ID_USUARIO = {$iduser}";
+        $result = mysqli_query($conn,$sql);
+        $usuario = mysqli_fetch_array($result);
         $clave=$usuario;
 
         if($foto["name"]==""){
@@ -163,18 +165,18 @@
         }else{
             $imagen=$foto['name'];
             $tipoarchivo=$foto['type'];
-            $rest = substr($tipoarchivo,6);                            
+            $rest = substr($tipoarchivo,6);                           
             $ruta="images/".$no_control.".".$rest;
             $nombreimagen="https://www.ciaigandhi.com/almns/".$ruta;                            
             #move_uploaded_file($foto['tmp_name'],$ruta);
         }
 
-        $sql = "UPDATE tbl_usuarios SET LOGIN = '{$usuario}', CLAVE = AES_ENCRYPT('{$clave}','INDIRAGANDHI2017') WHERE ID_USUARIO = {$iduser}";
-        if($conn -> query($sql)==FALSE){
-            $error = mysqli_error($conn);
-            mysqli_rollback($conn);
-            die("QUERY ERROR: ". $error);
-        }
+        // $sql = "UPDATE tbl_usuarios SET LOGIN = '{$usuario}', CLAVE = AES_ENCRYPT('{$clave}','INDIRAGANDHI2017') WHERE ID_USUARIO = {$iduser}";
+        // if($conn -> query($sql)==FALSE){
+        //     $error = mysqli_error($conn);
+        //     mysqli_rollback($conn);
+        //     die("QUERY ERROR: ". $error);
+        // }
         $sql = " UPDATE tbl_alumnos SET ID_ALUMNO = {$no_control}, NOMBRE = '{$nombre}', A_PATERNO = '{$a_paterno}', A_MATERNO = '{$a_materno}', GRADO = {$gdo}, TEL = '{$telefono}', EMAIL = '{$email}', NIVEL = {$nivel}, FECHA_INGRESO = '{$fechaI}', FECHA_EGRESO = '{$fechaF}', IMAGEN = '{$nombreimagen}' WHERE ID_USUARIO ={$iduser}";
 			if($conn -> query($sql) == TRUE){
 				$sql="UPDATE tbl_asignaciongrupos SET id_grupo={$idgrupo[0]} where id_alumno={$no_control}";

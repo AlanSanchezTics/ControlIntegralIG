@@ -417,7 +417,7 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST["opcion"])
             $fechaI = $_POST["fechaI"];
             $fechaF = $_POST["fechaF"];
             $grupo = $_POST["destinatario"];
-            $materia = $_POST["tipo"];
+            $materia = ($_POST["tipo"] != '' ? $_POST["tipo"] : 'es' );
             $foto = $_FILES["imagen"];
             $estado = (isset($_POST["programar"]) ? 1 : 0);
             postTarea($titulo,$contenido,$fechaI,$fechaF,$estado,$grupo,$materia,$idDoc,$foto);
@@ -429,7 +429,7 @@ if(isset($_SESSION['TIPO']) && $_SESSION['TIPO']=='D' && isset($_POST["opcion"])
             $fechaI = $_POST["fechaI"];
             $fechaF = $_POST["fechaF"];
             $grupo = $_POST["destinatario"];
-            $materia = $_POST["tipo"];
+            $materia = ($_POST["tipo"] != '' ? $_POST["tipo"] : 'es' );
             $foto = $_FILES["imagen"];
             $imgName = $_POST['imgName'];
             $notificar = (isset($_POST["notificar"]) ? $_POST["notificar"] : "");

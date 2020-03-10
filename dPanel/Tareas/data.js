@@ -78,9 +78,6 @@ var listar = function () {
     obtener_data_eliminar("#tblTareas tbody", tablaTareas);
     obtener_data_view("#tblTareas tbody", tablaTareas);
     obtener_data_reenviar("#tblTareas tbody", tablaTareas);
-    setInterval( function () {
-        tablaTareas.ajax.reload( null, false ); // user paging is not reset on reload
-    }, 5000 );
 }
 var nueva_tarea = function () {
     $("#addTarea").on('click', function () {

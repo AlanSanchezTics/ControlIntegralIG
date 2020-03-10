@@ -65,7 +65,7 @@
         $nivel = "";
         switch ($e) {
             case '0':
-                $nivel = "Pre Kinder";
+                $nivel = "PreKinder";
                 break;
             case '1':
                 $nivel = "Preescolar";
